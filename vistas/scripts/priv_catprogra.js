@@ -3,43 +3,8 @@ var tabla;
 
 //FUNCION QUE SE EJECUTA AL INICIO
 function init(){
-	mostrarform(false);
 	listar();
-
 	
-}
-
-//FUNCION PARA LIMPIAR CAMPOS
-function limpiar()
-{
-	$("#programa_codigo").val("");
-	$("#programa_nombre").val("");
-	$("#programa_email").val("");
-}
-
-//FUNCION PARA MOSTRAR FORMULARIOS
-function mostrarform(flag)
-{
-	limpiar();
-	if(flag)
-	{
-		$("#listadoregistros").hide();
-		$("#formularioregistros").show();
-		$("#btnGuardar").prop("disabled",false);
-	}else
-	{
-		$("#listadoregistros").show();
-		$("#formularioregistros").hide();
-		//$("#btnGuardar").prop("disabled",true);	
-	}
-}
-
-
-//Función cancelarform
-function cancelarform()
-{
-	limpiar();
-	mostrarform(false);
 }
 
 
@@ -70,30 +35,6 @@ function listar()
 	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden),
 	    
 	}).DataTable();
-}
-
-//FUNCION PARA GUARDAR Y EDITAR
-function guardaryeditar(e){
-	e.preventDefault(); //No se activará la acción predeterminada del evento
-	$("#btnGuardar").prop("disabled",true);
-	var formData = new FormData($("#formulario")[0]);
-
-	$.ajax({
-		url: "../ajax/programa.php?op=guardaryeditar",
-	    type: "POST",
-	    data: formData,
-	    contentType: false,
-	    processData: false,
-
-	    success: function(datos)
-	    {                    
-	          bootbox.alert(datos);	          
-	          mostrarform(false);
-	          tabla.ajax.reload();
-	    }
-
-	});
-	limpiar();
 }
 
 function mostrarCat(usuari_id){

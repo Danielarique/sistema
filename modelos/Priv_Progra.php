@@ -21,7 +21,7 @@ Class Priv_Progra
 		$num_elementos = 0;
 		$sw=true;
 
-		while($num_elementos < count($cats)){
+		while($num_elementos < count($programas)){
 			$sql_detalle="INSERT INTO privilegio_progra (PROGRA_CODIGO,USUARI_ID)
 						  VALUES('$programas[$num_elementos]','$usuari_id')";
 			ejecutarConsulta($sql_detalle) or $sw =false;

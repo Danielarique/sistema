@@ -2,6 +2,7 @@ var tabla;
 
 //FUNCION QUE SE EJECUTA AL INICIO
 function init(){
+
 	listar();
 	$("#listProgra").on("submit",function(e){
 		guardar(e);		

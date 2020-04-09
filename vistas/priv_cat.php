@@ -51,7 +51,7 @@ if($_SESSION['privi_catprogra']==1){
               <!-- /.box-header -->
               <!-- centro -->
               <form name="listCats" id="listCats" method="POST">
-                <input type="text" name="usuari_id" id="usuari_id" value="<?php echo $usuari_id;?>">
+                <input type="hidden" name="usuari_id" id="usuari_id" value="<?php echo $usuari_id;?>">
                 <div class="panel-body table-responsive" id="listadoregistros">
                   <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                     <thead>
