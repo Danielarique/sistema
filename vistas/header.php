@@ -26,8 +26,8 @@ if(strlen(session_id()) < 1){
     <link rel="stylesheet" type="text/css" href="../public/datatables/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="../public/datatables/buttons.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="../public/datatables/responsive.dataTables.min.css">
-  <link rel="stylesheet" type="text/css" href="../public/css/styles.css">
-  <link rel="stylesheet" type="text/css" href="../public/css/bootstrap-select.min.css">
+    <link rel="stylesheet" type="text/css" href="../public/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="../public/css/bootstrap-select.min.css">
    
 
 
@@ -36,7 +36,7 @@ if(strlen(session_id()) < 1){
     <div class="wrapper">
 
       <header class="main-header">
-
+         
         <!-- Logo -->
         <a href="index2.html" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->

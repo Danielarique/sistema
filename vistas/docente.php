@@ -2,7 +2,6 @@
 //Se activa el almacenamiento en bufer
 ob_start();
 session_start();
-
 if(!isset($_SESSION["USUARI_NOMBRES"])){
   header("Location: index.php");
 }else{ 

@@ -28,6 +28,7 @@ if($_SESSION['asignacion']==1){
             <div class="container" id="advanced-search-form" style="width: 1000px">
               <h2 align="center">INGRESAR DATOS ASIGNACIÓN</h2>
               <form name="formulario" id="formulario" method="POST">
+                <input type="text" name="usuari_id" id="usuari_id" value="<?php echo $_SESSION["USUARI_ID"]; ?>">
                 <table>
                   <tr>
                     <td style="width: 120px">CAT:</td>
@@ -44,23 +45,24 @@ if($_SESSION['asignacion']==1){
                   <tr>
                     <td>
                       <input type="hidden" name="asigna_id" id="asigna_id">
-                      <input type="text" class="form-control"  name="cat_id" id="cat_id" size="4" >
+                      <select class="selectpicker" data-live-search="true" name="cat_id" id="cat_id" style="text-transform: uppercase;text-decoration:none;align-content: left">
+                      </select>
                     </td>
                     <td>&nbsp;&nbsp;</td>
                     <td>
-                      <input type="text" class="form-control"  name="cat_id" id="cat_id" size="4" >
+                      <input type="text" class="form-control"  name="desp_id" id="desp_id" size="4" >
                     </td>
                     <td>&nbsp;&nbsp;</td>
                     <td>
-                      <input type="text" class="form-control"  name="cat_id" id="cat_id" size="4" >
+                      <input type="text" class="form-control"  name="mate_id" id="mate_id" size="4" >
                     </td>
                     <td>&nbsp;&nbsp;</td>
                     <td>
-                      <input type="text" class="form-control"  name="cat_id" id="cat_id" size="4" >
+                      <input type="text" class="form-control"  name="doce_id" id="doce_id" size="4" >
                     </td>
                     <td>&nbsp;&nbsp;</td>
                     <td>
-                      <input type="text" class="form-control"  name="cat_id" id="cat_id" size="4" >
+                      <input type="text" class="form-control"  name="doce_nomb" id="doce_nomb" size="4" >
                     </td>
                     <td>&nbsp;&nbsp;</td>
                     <td>
@@ -87,32 +89,31 @@ if($_SESSION['asignacion']==1){
                   </tr>
                   <tr>
                     <td>
-                      <input type="hidden" name="asigna_id" id="asigna_id">
-                      <input type="text" class="form-control"  name="cat_id" id="cat_id" size="4" >
+                      <input type="text" class="form-control"  name="grup_id" id="grup_id" size="4" >
                     </td>
                     <td>&nbsp;&nbsp;</td>
                     <td>
-                      <input type="text" class="form-control"  name="cat_id" id="cat_id" size="4" >
+                      <input type="text" class="form-control"  name="sema_id" id="sema_id" size="4" >
                     </td>
                     <td>&nbsp;&nbsp;</td>
                     <td>
-                      <input type="text" class="form-control"  name="cat_id" id="cat_id" size="4" >
+                      <input type="text" class="form-control"  name="dia_id" id="dia_id" size="4" >
                     </td>
                     <td>&nbsp;&nbsp;</td>
                     <td>
-                      <input type="text" class="form-control"  name="cat_id" id="cat_id" size="4" >
+                      <input type="text" class="form-control"  name="hora_id" id="hora_id" size="4" >
                     </td>
                     <td>&nbsp;&nbsp;</td>
                     <td>
-                      <input type="text" class="form-control"  name="cat_id" id="cat_id" size="4" >
+                      <input type="text" class="form-control"  name="holi_id" id="holi_id" size="4" >
                     </td>
                     <td>&nbsp;&nbsp;</td>
                     <td>
-                      <input type="text" class="form-control"  name="cat_id" id="cat_id" size="4" >
+                      <input type="text" class="form-control"  name="salo_id" id="salo_id" size="4" >
                     </td>
                     <td>&nbsp;&nbsp;</td>
                     <td>
-                      <textarea name="textarea"  class="form-control"  name="cat_id" id="cat_id" size="4" ></textarea>
+                      <textarea name="textarea"  class="form-control"  name="obse_id" id="obse_id" size="4" ></textarea>
                     </td>
                   </tr>               
                 </table>
@@ -143,7 +144,7 @@ if($_SESSION['asignacion']==1){
 }
 require 'footer.php';
 ?>
-<script type="text/javascript" src="scripts/asignacioon.js"></script>
+<script type="text/javascript" src="scripts/asignacion.js"></script>
 <script type="text/javascript" src="scripts/valiForm.js"></script>
 <?php
 }

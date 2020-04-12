@@ -3,7 +3,7 @@ var tabla;
 
 //FUNCION QUE SE EJECUTA AL INICIO
 function init(){
-	mostrarform(false);
+	mostrarform(true);
 	listar();
 
 	$("#formulario").on("submit",function(e){
@@ -24,11 +24,12 @@ function init(){
 		guardaryeditar(e);
 		
 	});
-
-	//SE CARGAN LOS ITEMS DEL SELECT PROGRAMA
-	$.post("../ajax/materia.php?op=selectPrograma",function (r){
-		$("#progra_id").html(r);
-		$("#progra_id").selectpicker('refresh');
+	usuari_id = $("#usuari_id").val();
+	alert(usuari_id);
+	//SE CARGAN LOS ITEMS DEL SELECT CAT, CON LOS PRIVILEGIOS DE CAT QUE TIENE EL USUARIO
+	$.post("../ajax/asignacion.php?op=selectCat&usuari_id="+usuari_id,function (r){
+		$("#cat_id").html(r);
+		$("#cat_id").selectpicker('refresh');
 	})
 
 	//SE CARGAN LOS ITEMS DEL SELECT PLAN ESTUDIOS Y SEMESTRE
