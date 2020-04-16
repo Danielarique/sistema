@@ -65,10 +65,35 @@ switch ($_GET["op"]) {
 		$rspta = $priv_cat->listarmarcados($usuari_id);
 
 		while ($reg = $rspta->fetch_object()) {
-			echo '<option value=' .$reg->PRIVIL_ID .'>' . $reg->CAT_CODIGO .'</option>';
+			echo '<option value=' .$reg->CAT_ID .'>' . $reg->CAT_NOMBRE .'</option>';
 		}
 
 	break;
+
+	case 'selectDespla':
+		require_once "../modelos/Desplazamiento.php";
+		$desplaza = new Desplaza();
+		$usuari_id = $_GET["usuari_id"];
+		$rspta = $desplaza->listDesp($usuari_id);
+
+		while ($reg = $rspta->fetch_object()) {
+			echo '<option value=' .$reg->DESPLA_ID .'>' . $reg->DESPLA_ORIGEN .'-'.$reg->DESPLA_DESTINO.'</option>';
+		}
+
+	break;
+
+	case 'selectMateria':
+		require_once "../modelos/Materia.php";
+		$materia = new Materia();
+		$usuari_id = $_GET["usuari_id"];
+		$rspta = $materia->listMate($usuari_id);
+
+		while ($reg = $rspta->fetch_object()) {
+			echo '<option value=' .$reg->MATERI_ID .'>' . $reg->MATERI_CODIGO .'-'.$reg->MATERI_NOMBRE.'</option>';
+		}
+
+	break;
+
 }
 
 

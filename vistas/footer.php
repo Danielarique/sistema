@@ -21,6 +21,8 @@
     <script src="../public/datatables/vfs_fonts.js"></script>
     <script src="../public/js/bootbox.min.js"></script>
     <script src="../public/js/bootstrap-select.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>  
 
   </body>
 </html>

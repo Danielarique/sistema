@@ -26,7 +26,7 @@ switch ($_GET["op"]) {
 		$data = Array();
 		//Almacenamos los permisos asignados al usuario 
 		while($programas = $marcados->fetch_object()){
-			array_push($valores,$programas->PROGRA_CODIGO);
+			array_push($valores,$programas->PROGRA_ID);
 		}
 
 		while($reg= $rspta->fetch_object()) {

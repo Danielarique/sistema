@@ -28,9 +28,9 @@ if($_SESSION['asignacion']==1){
             <div class="container" id="advanced-search-form" style="width: 1000px">
               <h2 align="center">INGRESAR DATOS ASIGNACIÓN</h2>
               <form name="formulario" id="formulario" method="POST">
-                <input type="text" name="usuari_id" id="usuari_id" value="<?php echo $_SESSION["USUARI_ID"]; ?>">
+                <input type="hidden" name="usuari_id" id="usuari_id" value="<?php echo $_SESSION["USUARI_ID"]; ?>">
                 <table>
-                  <tr>
+                 <!-- <tr>
                     <td style="width: 120px">CAT:</td>
                     <td style="width: 20px">&nbsp;&nbsp;</td>
                     <td style="width: 180px">Desplazamiento:</td>
@@ -41,22 +41,30 @@ if($_SESSION['asignacion']==1){
                     <td style="width: 10px">&nbsp;&nbsp;</td>
                     <td style="width: 200px">Nombre Docente:</td>
                     <td style="width: 10px">&nbsp;&nbsp;</td>
-                  </tr>
+                  </tr>-->
                   <tr>
                     <td>
                       <input type="hidden" name="asigna_id" id="asigna_id">
-                      <select class="selectpicker" data-live-search="true" name="cat_id" id="cat_id" style="text-transform: uppercase;text-decoration:none;align-content: left">
-                      </select>
+                      <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 100px">
+                        <label>CAT:</label>
+                        <select class="selectpicker" data-live-search="true" name="cat_id" id="cat_id" style="text-transform: uppercase;text-decoration:none;align-content: left">
+                        </select>
+                      </div> 
                     </td>
-                    <td>&nbsp;&nbsp;</td>
                     <td>
-                      <input type="text" class="form-control"  name="desp_id" id="desp_id" size="4" >
+                      <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 170px">
+                        <label>Desplazamiento:</label>
+                        <select class="selectpicker" data-width="auto" data-live-search="true" name="despla_id" id="despla_id" style="text-transform: uppercase;text-decoration:none;align-content: left;">
+                        </select>
+                      </div> 
                     </td>
-                    <td>&nbsp;&nbsp;</td>
                     <td>
-                      <input type="text" class="form-control"  name="mate_id" id="mate_id" size="4" >
+                      <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 200px">
+                        <label>Materia:</label>
+                        <select class="selectpicker" data-width="auto" data-live-search="true" name="materi_id" id="materi_id" style="text-transform: uppercase;text-decoration:none;align-content: left">
+                        </select>
+                      </div> 
                     </td>
-                    <td>&nbsp;&nbsp;</td>
                     <td>
                       <input type="text" class="form-control"  name="doce_id" id="doce_id" size="4" >
                     </td>

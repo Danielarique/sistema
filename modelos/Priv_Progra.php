@@ -22,7 +22,7 @@ Class Priv_Progra
 		$sw=true;
 
 		while($num_elementos < count($programas)){
-			$sql_detalle="INSERT INTO privilegio_progra (PROGRA_CODIGO,USUARI_ID)
+			$sql_detalle="INSERT INTO privilegio_progra (PROGRA_ID,USUARI_ID)
 						  VALUES('$programas[$num_elementos]','$usuari_id')";
 			ejecutarConsulta($sql_detalle) or $sw =false;
 
@@ -32,10 +32,9 @@ Class Priv_Progra
 
 	}
 
-
-	//SE IMPLEMENTA METODO PARA MOSTRAR LOS PRIVILEGIOS DEL CAT QUE TENGA EL USUARIO
+	//SE IMPLEMENTA METODO PARA MOSTRAR LOS PRIVILEGIOS DEL PROGRAMA QUE TENGA EL USUARIO
 	public function listarmarcados($usuari_id){
-		$sql="SELECT PRIVIL_ID, PROGRA_CODIGO FROM privilegio_progra  WHERE USUARI_ID='$usuari_id'";
+		$sql="SELECT PRIVIL_ID, PROGRA_ID FROM privilegio_progra  WHERE USUARI_ID='$usuari_id'";
 		return ejecutarConsulta($sql);
 	}
 }

@@ -25,20 +25,23 @@ function init(){
 		
 	});
 	usuari_id = $("#usuari_id").val();
-	alert(usuari_id);
 	//SE CARGAN LOS ITEMS DEL SELECT CAT, CON LOS PRIVILEGIOS DE CAT QUE TIENE EL USUARIO
 	$.post("../ajax/asignacion.php?op=selectCat&usuari_id="+usuari_id,function (r){
 		$("#cat_id").html(r);
 		$("#cat_id").selectpicker('refresh');
-	})
+	});
 
 	//SE CARGAN LOS ITEMS DEL SELECT PLAN ESTUDIOS Y SEMESTRE
-	$.post("../ajax/materia.php?op=selectSemestre",function (m){
-		$("#materi_planest").html(m);
-		$("#materi_planest").selectpicker('refresh');
-		$("#materi_semestre").html(m);
-		$("#materi_semestre").selectpicker('refresh');
-	})
+	$.post("../ajax/asignacion.php?op=selectDespla&usuari_id="+usuari_id,function (m){
+		$("#despla_id").html(m);
+		$("#despla_id").selectpicker('refresh');
+	});
+
+	//SE CARGAN LOS ITEMS DEL SELECT PLAN ESTUDIOS Y SEMESTRE
+	$.post("../ajax/asignacion.php?op=selectMateria&usuari_id="+usuari_id,function (n){
+		$("#materi_id").html(n);
+		$("#materi_id").selectpicker('refresh');
+	});
 
 	
 }

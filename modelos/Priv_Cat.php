@@ -22,7 +22,7 @@ Class Priv_Cat
 		$sw=true;
 
 		while($num_elementos < count($cats)){
-			$sql_detalle="INSERT INTO privilegio_cat (CAT_CODIGO,USUARI_ID)
+			$sql_detalle="INSERT INTO privilegio_cat (CAT_ID,USUARI_ID)
 						  VALUES('$cats[$num_elementos]','$usuari_id')";
 			ejecutarConsulta($sql_detalle) or $sw =false;
 
@@ -35,7 +35,9 @@ Class Priv_Cat
 
 	//SE IMPLEMENTA METODO PARA MOSTRAR LOS PRIVILEGIOS DEL CAT QUE TENGA EL USUARIO
 	public function listarmarcados($usuari_id){
-		$sql="SELECT PRIVIL_ID, CAT_CODIGO FROM privilegio_cat  WHERE USUARI_ID='$usuari_id'";
+		$sql="SELECT pc.PRIVIL_ID AS PRIVIL_ID, pc.CAT_ID AS CAT_ID, ca.CAT_NOMBRE AS CAT_NOMBRE
+			  FROM privilegio_cat AS pc INNER JOIN cat AS ca ON(pc.CAT_ID=ca.CAT_ID)
+		      WHERE USUARI_ID='$usuari_id'";
 		return ejecutarConsulta($sql);
 	}
 }

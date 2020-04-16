@@ -26,7 +26,7 @@ switch ($_GET["op"]) {
 		$data = Array();
 		//Almacenamos los permisos asignados al usuario 
 		while($cats = $marcados->fetch_object()){
-			array_push($valores,$cats->CAT_CODIGO);
+			array_push($valores,$cats->CAT_ID);
 		}
 
 		while($reg= $rspta->fetch_object()) {

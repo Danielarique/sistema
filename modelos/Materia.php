@@ -77,6 +77,20 @@ Class Materia
 		      FROM materia  WHERE MATERI_ID='$materi_id'";
 		return ejecutarConsultaSimpleFila($sql);
 	}
+
+	//FUNCION PARA LISTAR MATERIAS SEGUN LOS PERMISOS DE PROGRAMA QUE TENGA EL USUARIO
+	public function listmate($usuari_id){
+		$sql="SELECT ma.MATERI_ID AS MATERI_ID, ma.MATERI_CODIGO AS MATERI_CODIGO,ma.MATERI_NOMBRE AS MATERI_NOMBRE,
+			 pr.PROGRA_CODIGO AS PROGRA_CODIGO
+			 FROM privilegio_progra AS pp
+			 INNER JOIN programa AS pr ON(pp.PROGRA_ID=pr.PROGRA_ID)
+			 INNER JOIN materia AS ma ON(pr.PROGRA_ID=ma.PROGRA_ID) 
+			 WHERE pp.USUARI_ID='$usuari_id'
+			 ORDER BY pr.PROGRA_CODIGO,ma.MATERI_SEMESTRE";
+		return ejecutarConsulta($sql);
+	}
+
+
 }
 
 
