@@ -69,7 +69,24 @@ Class Docente
 		$sql="SELECT DOCENT_PERFIL
 		      FROM docentes  WHERE DOCENT_ID='$docent_id'";
 		return ejecutarConsultaSimpleFila($sql);
+	}
+
+	//SE IMPLEMENTA METODO PARA MOSTRAR RESULTRADOS DEL FILTRO
+	public function buscDoce($busq){
+		$sql="SELECT DOCENT_ID, DOCENT_DOCUMENTO, DOCENT_NOMBRE
+		      FROM docentes  WHERE DOCENT_DOCUMENTO LIKE '%$busq%' OR DOCENT_NOMBRE LIKE '%$busq%'";
+
+		return ejecutarConsulta($sql);
+	}
+
+	//SE IMPLEMENTA METODO PARA CONSULTAR ID DE DOCENTE CON EL DOCUMENTO
+	public function infoDocent($docent_document){
+		$sql="SELECT DOCENT_ID
+		      FROM docentes  WHERE DOCENT_DOCUMENTO = '$docent_document'";
+
+		return ejecutarConsulta($sql);
 	}	
+	
 }
 
 

@@ -3,22 +3,79 @@ var tabla;
 
 //FUNCION QUE SE EJECUTA AL INICIO
 function init(){
-	mostrarform(true);
+	mostrarform(false);
 	listar();
+	 $(document).ready(function () {
+	 	
+        $('#docent_documento').typeahead({
+            source: function (busqueda, resultado) {
+                $.ajax({
+                    url: "../ajax/asignacion.php?op=buscDoce",
+					data: 'busqueda=' + busqueda,            
+                    dataType: "json",
+                    type: "POST",
+                    success: function (data) {
+						resultado($.map(data, function (item) {
+                    	//console.log(item);
+							return item;
+                        }));
+                    },     	
+                });
+            }
+        });
+
+        $('#docent_nombre').typeahead({
+            source: function (busqueda, resultado) {
+                $.ajax({
+                    url: "../ajax/asignacion.php?op=buscDoce",
+					data: 'busqueda=' + busqueda,            
+                    dataType: "json",
+                    type: "POST",
+                    success: function (data) {
+						resultado($.map(data, function (item) {
+                    	//console.log(item);
+							return item;
+                        }));
+                    },	
+                });
+            }
+        });
+    });
 
 	$("#formulario").on("submit",function(e){
 		
-		if($("#materi_codigo").val()==""){
-			bootbox.alert('Debe diligenciar campo Codigo');
+		if($("#cat_id").val()==""){
+			bootbox.alert('Debe diligenciar campo CAT');
 			return false;
-		}else if($("#materi_nombre").val()==""){
+		}else if($("#despla_id").val()==""){
+			bootbox.alert('Debe diligenciar campo Desplazamiento');
+			return false;
+		}else if($("#materi_id").val()==""){
+			bootbox.alert('Debe diligenciar campo Materia');
+			return false;
+		}else if($("#docent_documento").val()==""){
+			bootbox.alert('Debe diligenciar campo Documento');
+			return false;
+		}else if($("#docent_nombre").val()==""){
 			bootbox.alert('Debe diligenciar campo Nombre');
 			return false;
-		}else if($("#progra_id").val()==""){
-			bootbox.alert('Debe diligenciar campo Programa');
+		}else if($("#grupo_id").val()==""){
+			bootbox.alert('Debe diligenciar campo Grupo');
 			return false;
-		}else if($("#materi_planest").val()==""){
-			bootbox.alert('Debe diligenciar campo Plan Estudio');
+		}else if($("#semana_id").val()==""){
+			bootbox.alert('Debe diligenciar campo Semana');
+			return false;
+		}else if($("#dia_id").val()==""){
+			bootbox.alert('Debe diligenciar campo Día');
+			return false;
+		}else if($("#hora_id").val()==""){
+			bootbox.alert('Debe diligenciar campo Hora');
+			return false;
+		}else if($("#asigna_lidart").val()==""){
+			bootbox.alert('Debe diligenciar campo Horas lider articulación');
+			return false;
+		}else if($("#asigna_salon").val()==""){
+			bootbox.alert('Debe diligenciar campo Salón');
 			return false;
 		}
 		guardaryeditar(e);
@@ -46,21 +103,33 @@ function init(){
 	
 }
 
+//FUNCION PARA INSERTAR INFORMACION DE LOS INPUT DEL DOCENTE
+function autoco_docente(docent)
+{
+	var docent_info =  docent.split("-");
+	var docent_documento =  docent_info[0];
+	var docent_nombre = docent_info[1];
+	$("#docent_documento").val(docent_documento);
+	$("#docent_nombre").val(docent_nombre);
+}
+
+
+//FUNCION PARA MOSTRAR CURSOS ASIGNADOS AL DOCENTE
+function cursos_asigna(){
+	var docent_document =  $("#docent_documento").val();
+	$.post("../ajax/asignacion.php?op=cursosAsigna&docent_document="+docent_document,function (r){
+		bootbox.alert("Numero de cursos asignados al docente seleccionado: "+r);
+	});
+}
+
 //FUNCION PARA LIMPIAR CAMPOS
 function limpiar()
 {
-	$("#materi_codigo").val("");
-	$("#materi_nombre").val("");
-	$("#progra_id").val("");
-	$("#materi_planest").val("");
-	$("#materi_semestre").val("");
-	$("#materi_semes").val("");
-	$("#materi_horascur").val("");
-	$("#materi_horasart").val("");
-	$("#materi_horaslidart").val("");
-	$("#materi_horaprac").val("");
-	$("#materi_perfilest").val("");
-	$("#materi_actacurr").val("");
+	$("#docent_documento").val("");
+	$("#docent_nombre").val("");
+	$("#asigna_lidart").val("");
+	$("#asigna_salon").val("");
+	$("#asigna_observ").val("");
 }
 
 //FUNCION PARA MOSTRAR FORMULARIOS
@@ -104,7 +173,7 @@ function listar()
 		        ],
 		"ajax":
 				{
-					url: '../ajax/materia.php?op=listar',
+					url: '../ajax/asignacion.php?op=listar',
 					type : "get",
 					dataType : "json",						
 					error: function(e){
@@ -126,7 +195,7 @@ function guardaryeditar(e){
 	var formData = new FormData($("#formulario")[0]);
 
 	$.ajax({
-		url: "../ajax/materia.php?op=guardaryeditar",
+		url: "../ajax/asignacion.php?op=guardaryeditar",
 	    type: "POST",
 	    data: formData,
 	    contentType: false,
@@ -143,34 +212,34 @@ function guardaryeditar(e){
 	limpiar();
 }
 
-function mostrar(materi_id){
-	$.post("../ajax/materia.php?op=mostrar",{materi_id : materi_id}, function(data,status)
-	{
+function mostrar(asigna_id){
+	$.post("../ajax/asignacion.php?op=mostrar",{asigna_id : asigna_id}, function(data,status)
+	{ 
 		data = JSON.parse(data);
 		mostrarform(true);
+		$("#asigna_id").val(data.ASIGNA_ID);
+		$("#cat_id").val(data.CAT_ID);
+		$("#cat_id").selectpicker('refresh');
+		$("#despla_id").val(data.DESPLA_ID);
+		$("#despla_id").selectpicker('refresh');
+		$("#docent_documento").val(data.DOCENT_DOCUMENTO);
+		$("#docent_nombre").val(data.DOCENT_NOMBRE);
 		$("#materi_id").val(data.MATERI_ID);
-		$("#materi_codigo").val(data.MATERI_CODIGO);
-		$("#materi_nombre").val(data.MATERI_NOMBRE);
-		$("#progra_id").val(data.PROGRA_ID);
-		$("#progra_id").selectpicker('refresh');
-		$("#materi_planest").val(data.MATERI_PLANEST);
-		$("#materi_planest").selectpicker('refresh');
-		$("#materi_semestre").val(data.MATERI_SEMESTRE);
-		$("#materi_semestre").selectpicker('refresh');
-		$("#materi_semes").val(data.MATERI__SEMES);
-		$("#materi_horascur").val(data.MATERI_HORASCUR);
-		$("#materi_horasart").val(data.MATERI_HORASART);
-		$("#materi_horaslidart").val(data.MATERI_HORASLIDART);
-		$("#materi_horasprac").val(data.MATERI_HORASPRAC);
-		$("#materi_perfilest").val(data.MATERI_PERFILEST);
-		$("#materi_actacurr").val(data.MATERI_ACTACURR);
+		$("#materi_id").selectpicker('refresh');
+		$("#grupo_id").val(data.ASIGNA_GRUPO);
+		$("#semana_id").val(data.ASIGNA_SEMANA);
+		$("#dia_id").val(data.DIA_ID);
+		$("#hora_id").val(data.HORA_ID);
+		$("#asigna_lidart").val(data.ASIGNA_LIDART);
+		$("#asigna_salon").val(data.ASIGNA_SALON);
+		$("#asigna_observ").val(data.ASIGNA_OBSER);
 	})
 }
 
-function eliminar(materi_id){
-	bootbox.confirm("¿Está seguro de eliminar Materia??", function(result){
+function eliminar(asigna_id){
+	bootbox.confirm("¿Está seguro de eliminar Asignación??", function(result){
 		if(result){
-			$.post("../ajax/materia.php?op=eliminar",{materi_id : materi_id}, function(e){
+			$.post("../ajax/asignacion.php?op=eliminar",{asigna_id : asigna_id}, function(e){
 				bootbox.alert(e);
 				tabla.ajax.reload();
 			});
@@ -178,13 +247,16 @@ function eliminar(materi_id){
 	})
 }
 
+//FUNCION PARA MOSTRAR EL PERFIL ESTABLECIDO POR MATERIA
 function mostrarPer(materi_id){
-	$.post("../ajax/materia.php?op=mostrarPer",{materi_id : materi_id}, function(data,status){
-		//data = JSON.parse(data);
-		//console.log(data);
+	$.post("../ajax/materia.php?op=mostrarPer",{materi_id : materi_id}, function(data,status){	
 		bootbox.alert(data);
-		//bootbox.alert(data);
-		//tabla.ajax.reload();
+	});
+}
+
+function mostPerDoc(docent_id){
+	$.post("../ajax/docente.php?op=mostrarPer",{docent_id : docent_id}, function(data,status){	
+		bootbox.alert(data);
 	});
 }
 
