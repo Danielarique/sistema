@@ -13,20 +13,21 @@ function init(){
 			bootbox.alert('Debe diligenciar campo Contraseña');
 			return false;
 		}
-		var logina = $("#logina").val();
-		var clavea = $("#clavea").val();
-
-		$.post("../ajax/usuario.php?op=verificar",
-			{logina: logina, clavea: clavea},
-		    function(data) {
-				
-				data = JSON.parse(data);
-       			if(data != null){
-            		$(location).attr('href', 'docente.php');
-		        }else{
-		           alert('Usuario y/o contraseña son incorrectos');
-		      	}
-			});	
+		e.preventDefault();
+	logina=$("#logina").val();
+	clavea=$("#clavea").val();
+ 
+	$.post("../ajax/usuario.php?op=verificar",
+		{"logina":logina,"clavea":clavea},
+		function(data){	
+			
+		    if(data!="null"){
+			$(location).attr("href","usuario.php");
+		    }
+		    else{
+			bootbox.alert("Usuario y/o Password incorrectos");
+			}
+		});
 	});	
 
 }

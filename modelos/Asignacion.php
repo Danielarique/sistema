@@ -15,12 +15,25 @@ Class Asigna
 				$asigna_salon,$asigna_observ,$asigna_usuadigi)
 	{
 
-		$sql="INSERT INTO asignacion (CAT_ID, DESPLA_ID, MATERI_ID, DOCENT_ID, ASIGNA_GRUPO,ASIGNA_SEMANA, DIA_ID, HORA_ID,  
+		/*$sqlCursAsig="SELECT a.ASIGNA_ID AS ASIGNA_ID, doc.DOCENT_DOCUMENTO AS DOCENT_DOCUMENTO, doc.DOCENT_NOMBRE AS  DOCENT_NOMBRE
+			 		  FROM asignacion AS a
+					  INNER JOIN docentes AS doc ON(a.DOCENT_ID=doc.DOCENT_ID)
+					  WHERE doc.DOCENT_ID = '$docent_id'";
+		$result = ejecutarConsulta($sqlCursAsig);
+		$resCursAsig = mysqli_num_rows($result);
+		if($resCursAsig < 4){*/
+
+			$sql="INSERT INTO asignacion (CAT_ID, DESPLA_ID, MATERI_ID, DOCENT_ID, ASIGNA_GRUPO,ASIGNA_SEMANA, DIA_ID, HORA_ID,  
 						  			  ASIGNA_SALON, ASIGNA_LIDART, ASIGNA_OBSER, ASIGNA_USUADIGI, ASIGNA_FECHDIGI, ASIGNA_HORADIGI)
 		           		  VALUES('$cat_id','$despla_id','$materi_id','$docent_id','$grupo_id','$semana_id','$dia_id','$hora_id',
 		           		  		'$asigna_salon','$asigna_lidart','$asigna_observ','$asigna_usuadigi',CURDATE(),CURTIME())";
-		           		
-		return ejecutarConsulta($sql);
+		    
+			return ejecutarConsulta($sql);
+		/*	return $msg = "Asignación registrada";
+		}else{
+			return $msg = "El docente ya tiene cuatro o mas materias asignadas. ";
+		}*/
+		
 	}
 
 	//SE IMPLEMENTA METODO PARA EDITAR REGISTROS
@@ -110,6 +123,18 @@ Class Asigna
 			 FROM asignacion AS a
 			 INNER JOIN docentes AS doc ON(a.DOCENT_ID=doc.DOCENT_ID)
 			 WHERE doc.DOCENT_DOCUMENTO = '$docent_document'";
+		return ejecutarConsulta($sql);
+	}
+
+	//FUNCION PARA CONSULTAR LOS CURSOS ASIGNADOS EL DOCENTE EN LA SEMANA,DIA Y HORA INGRESADA
+	public function cruceHorari($docent_document,$semana_id,$dia_id,$hora_id){
+		$sql="SELECT a.ASIGNA_ID AS ASIGNA_ID, d.DOCENT_DOCUMENTO
+			  FROM asignacion AS a
+			  INNER JOIN dia AS di ON a.DIA_ID=di.DIA_ID
+			  INNER JOIN hora AS ho ON a.HORA_ID=ho.HORA_ID
+			  INNER JOIN docentes AS d ON a.DOCENT_ID=d.DOCENT_ID
+			  WHERE a.ASIGNA_SEMANA='$semana_id' AND di.DIA_ID='$dia_id' AND ho.HORA_ID='$dia_id' 
+			  AND d.DOCENT_DOCUMENTO='$docent_document'";
 		return ejecutarConsulta($sql);
 	}
 

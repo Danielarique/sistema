@@ -17,7 +17,7 @@ $asigna_lidart=isset($_POST["asigna_lidart"])? limpiarCadena($_POST["asigna_lida
 $asigna_salon=isset($_POST["asigna_salon"])? limpiarCadena($_POST["asigna_salon"]):"";
 $asigna_observ=isset($_POST["asigna_observ"])? limpiarCadena($_POST["asigna_observ"]):"";
 $asigna_usuadigi =isset($_POST["usuari_usuario"])? limpiarCadena($_POST["usuari_usuario"]):"";
-
+	
 
 //SE CONSULTA ID DE DOCENTE CON LA CEDULA Q SE VA A REGISTRAR
 if($docent_document != ""){
@@ -152,6 +152,20 @@ switch ($_GET["op"]) {
 	case 'cursosAsigna':
 		$docent_document = $_GET["docent_document"];
 		$rspta=$asigna->cursosAsigna($docent_document);
+
+		$cantid = 0;
+		while ($reg = $rspta->fetch_object()) {
+			$cantid++;
+		}
+		echo $cantid;
+	break;
+
+	case 'cruceHorari':
+		$docent_document = $_GET["docent_document"];
+		$semana_id = $_GET["semana_id"];
+		$dia_id = $_GET["dia_id"];
+		$hora_id = $_GET["hora_id"];
+		$rspta=$asigna->cruceHorari($docent_document,$semana_id,$dia_id,$hora_id);
 
 		$cantid = 0;
 		while ($reg = $rspta->fetch_object()) {

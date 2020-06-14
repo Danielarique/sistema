@@ -20,82 +20,11 @@ if($_SESSION['asignacion']==1){
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">ASIGNACIÓN ACADÉMICA<button class="btn btn-success" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
-                        <div class="box-tools pull-right">
-                        </div>
+                          <h1 class="box-title">ASIGNACIÓN ACADÉMICA</h1>
+                        
                     </div>
                     <!-- /.box-header -->
                     <!-- centro -->
-                    <div class="panel-body table-responsive" id="listadoregistros">
-                      <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
-                        <thead>
-                          <th>Opciones</th>
-                          <th>Cod. CAT</th>
-                          <th>Nombre CAT</th>
-                          <th>Cod. Programa</th>
-                          <th>Nombre Programa</th>
-                          <th>Semestre</th>
-                          <th>Grupo</th>
-                          <th>Cod. Curso</th>
-                          <th>Nombre Curso</th>
-                          <th>Perfil Establecido</th>
-                          <th>Semana</th>
-                          <th>Día</th>
-                          <th>Hora</th>
-                          <th>Horas Curso</th>
-                          <th>Horas Art. Curso</th>
-                          <th>Horas Prac. Curso</th>
-                          <th>Horas lider art. curso</th>
-                          <th>Doc. Docente</th>
-                          <th>Nombre Docente</th>
-                          <th>Perfil Docente</th>   
-                          <th>Residencia Docente</th>
-                          <th>Teléfono Docente</th>
-                          <th>Celular Docente</th>
-                          <th>Email Inst. Docente</th>
-                          <th>Email Pers. Docente</th>
-                          <th>Planta</th>
-                          <th>Ciudad Origen</th>
-                          <th>Ciudad Destino</th>
-                          <th>Salón</th>
-                          <th>Observaciones</th>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                        <tfoot>
-                          <th>Opciones</th>
-                          <th>Cod. CAT</th>
-                          <th>Nombre CAT</th>
-                          <th>Cod. Programa</th>
-                          <th>Nombre Programa</th>
-                          <th>Semestre</th>
-                          <th>Grupo</th>
-                          <th>Cod. Curso</th>
-                          <th>Nombre Curso</th>
-                          <th>Perfil Establecido</th>
-                          <th>Semana</th>
-                          <th>Día</th>
-                          <th>Hora</th>
-                          <th>Horas Curso</th>
-                          <th>Horas Art. Curso</th>
-                          <th>Horas Prac. Curso</th>
-                          <th>Horas lider art. curso</th>
-                          <th>Doc. Docente</th>
-                          <th>Nombre Docente</th>
-                          <th>Perfil Docente</th>   
-                          <th>Residencia Docente</th>
-                          <th>Teléfono Docente</th>
-                          <th>Celular Docente</th>
-                          <th>Email Inst. Docente</th>
-                          <th>Email Pers. Docente</th>
-                          <th>Planta</th>
-                          <th>Ciudad Origen</th>
-                          <th>Ciudad Destino</th>
-                          <th>Salón</th>
-                          <th>Observaciones</th>
-                        </tfoot>
-                      </table>
-                    </div>
                     <div class="panel-body" style="height: 500px;" id="formularioregistros">
                       <div class="container" id="advanced-search-form" style="height: 400px">
                         <h2 align="center">INGRESAR ASIGNACIÓN</h2>
