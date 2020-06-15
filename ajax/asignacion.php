@@ -174,6 +174,35 @@ switch ($_GET["op"]) {
 		echo $cantid;
 	break;
 
+	case 'cruceMateri':
+		$materi_id = $_GET["materi_id"];
+		$semana_id = $_GET["semana_id"];
+		$dia_id = $_GET["dia_id"];
+		$hora_id = $_GET["hora_id"];
+		$grupo_id = $_GET["grupo_id"];
+		$cat_id = $_GET["cat_id"];
+		$rspta=$asigna->cruceMateri($materi_id,$semana_id,$dia_id,$hora_id,$grupo_id,$cat_id);
+
+		$cantid = 0;
+		while ($reg = $rspta->fetch_object()) {
+			$cantid++;
+		}
+		echo $cantid;
+	break;
+
+	case 'doblemateri':
+		$materi_id = $_GET["materi_id"];
+		$grupo_id = $_GET["grupo_id"];
+		$cat_id = $_GET["cat_id"];
+		$rspta=$asigna->doblemateri($materi_id,$grupo_id,$cat_id);
+
+		$cantid = 0;
+		while ($reg = $rspta->fetch_object()) {
+			$cantid++;
+		}
+		echo $cantid;
+	break;
+
 }
 
 

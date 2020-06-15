@@ -117,7 +117,7 @@ Class Asigna
 		return ejecutarConsulta($sql);
 	}
 
-	//FUNCION PARA MOSTRAR LOS CURSOS ASIGNADOS DEL DOCENTE INGRESADO
+	//FUNCION PARA MOSTRAR LOS CURSOS ASIGNADOS DEL DOCENTE INGRESADO (PRIMERA VALIDACION)
 	public function cursosAsigna($docent_document){
 		$sql="SELECT a.ASIGNA_ID AS ASIGNA_ID, doc.DOCENT_DOCUMENTO AS DOCENT_DOCUMENTO, doc.DOCENT_NOMBRE AS  DOCENT_NOMBRE
 			 FROM asignacion AS a
@@ -126,7 +126,7 @@ Class Asigna
 		return ejecutarConsulta($sql);
 	}
 
-	//FUNCION PARA CONSULTAR LOS CURSOS ASIGNADOS EL DOCENTE EN LA SEMANA,DIA Y HORA INGRESADA
+	//FUNCION PARA CONSULTAR LOS CURSOS ASIGNADOS EL DOCENTE EN LA SEMANA,DIA Y HORA INGRESADA (SEGUNDA VALIDACION)
 	public function cruceHorari($docent_document,$semana_id,$dia_id,$hora_id){
 		$sql="SELECT a.ASIGNA_ID AS ASIGNA_ID, d.DOCENT_DOCUMENTO
 			  FROM asignacion AS a
@@ -135,6 +135,41 @@ Class Asigna
 			  INNER JOIN docentes AS d ON a.DOCENT_ID=d.DOCENT_ID
 			  WHERE a.ASIGNA_SEMANA='$semana_id' AND di.DIA_ID='$dia_id' AND ho.HORA_ID='$dia_id' 
 			  AND d.DOCENT_DOCUMENTO='$docent_document'";
+		return ejecutarConsulta($sql);
+	}
+
+	//FUNCION PARA CONSULTAR LOS CURSOS REGISTRADOS EN LA SEMANA, DIA, HORA, GRUPO, POROGRAMA, SEMESTRE 
+	public function cruceMateri($materi_id,$semana_id,$dia_id,$hora_id,$grupo_id,$cat_id){
+		$sql_materi="SELECT PROGRA_ID, MATERI_PLANEST, MATERI_SEMESTRE 
+					FROM materia 
+					WHERE MATERI_ID='$materi_id'";
+                 		
+ 		$result_materias= ejecutarConsulta($sql_materi);
+ 		
+        foreach ($result_materias as $res) {
+                $progra_id= $res['PROGRA_ID'];
+         		$materi_planes= $res['MATERI_PLANEST'];
+         		$materi_semest= $res['MATERI_SEMESTRE'];
+        }
+
+		$sql="SELECT CAT_ID, ASIGNA_GRUPO, ASIGNA_SEMANA, DIA_ID, HORA_ID
+			FROM asignacion
+			WHERE asignacion.MATERI_ID IN (
+			SELECT materia.MATERI_ID
+			FROM materia
+			WHERE materia.PROGRA_ID='$progra_id' AND materia.MATERI_PLANEST='$materi_planes' 
+			AND materia.MATERI_SEMESTRE='$materi_semest') AND CAT_ID='$cat_id' AND ASIGNA_GRUPO='$grupo_id' 
+			AND ASIGNA_SEMANA='$semana_id' AND DIA_ID='$dia_id' AND HORA_ID='$hora_id'";
+			
+		return ejecutarConsulta($sql);
+	}
+
+	//FUNCION PARA CONSULTAR SI LA MATERIA YA FUE ASIGNADA EN EL MISMO CAT Y GRUPO
+	public function doblemateri($materi_id,$grupo_id,$cat_id){
+		$sql="SELECT ASIGNA_ID 
+			  FROM asignacion 
+			  WHERE MATERI_ID='$materi_id' AND CAT_ID='$cat_id' AND ASIGNA_GRUPO='$grupo_id'"; 		
+
 		return ejecutarConsulta($sql);
 	}
 

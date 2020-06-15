@@ -83,30 +83,47 @@ function init(){
 		var semana_id = $("#semana_id").val();
 		var dia_id = $("#dia_id").val();
 		var hora_id = $("#hora_id").val();
-		$.post("../ajax/asignacion.php?op=cursosAsigna&docent_document="+docent_document,function (r){
-			/* 1RA VALIDACION: LOS DOCENTES NO DEBEN TENER MAS DE 4 MATERIAS ASIGNADAS, A MENOS QUE SEA DOCENTE=0 (NO APLICA) */
-					console.log(r,docent_document);
-			if(r < 4  || docent_document==0){
+		var materi_id = $("#materi_id").val();
+		var grupo_id = $("#grupo_id").val();
+		var cat_id = $("#cat_id").val();
 		
-				
+		$.post("../ajax/asignacion.php?op=cursosAsigna&docent_document="+docent_document,function (r){
+			/* 1RA VALIDACION: LOS DOCENTES NO DEBEN TENER MAS DE 4 MATERIAS ASIGNADAS, A MENOS QUE SEA DOCENTE=0 (NO APLICA) */		
+			if(r < 4  || docent_document==0){	
 				$.post("../ajax/asignacion.php?op=cruceHorari&docent_document="+docent_document+"&semana_id="+semana_id+
 					"&dia_id="+dia_id+"&hora_id="+hora_id,function (m){
-				/* 2DA VALIDACION: LOS DOCENTES NO PUEDEN TENER MAS DE UNA MATERIA LA MISMA SEMANA, DIA Y HORA */
-				/*	guardaryeditar(e);*/
-				
-						console.log(docent_document,semana_id,hora_id,dia_id,m);
-				if(m < 1 || docent_document==0){
-					guardaryeditar(e);
-					location.reload();
-				}else{
-					alert("No es posible realizar asignación el docente identificado con documento: "+docent_document+" tiene cruce de horario");
-					
-				}
+				/* 2DA VALIDACION: LOS DOCENTES NO PUEDEN TENER MAS DE UNA MATERIA LA MISMA SEMANA, DIA Y HORA */			
+					if(m < 1 || docent_document==0){
+						//console.log("valor "+m);
+						$.post("../ajax/asignacion.php?op=cruceMateri&materi_id="+materi_id+"&semana_id="+semana_id+
+							"&dia_id="+dia_id+"&hora_id="+hora_id+"&grupo_id="+grupo_id+"&cat_id="+cat_id,function (n){
+							/* 3RA VALIDACION: EL MISMO CAT, PROGRAMA, NIVEL (SEMESTRE) Y GRUPO NO PUEDEN TENER MAS DE UNA MATERIA A LA MISMA HORA, DIA Y SEMANA */			
+							if(n < 1){
+								$.post("../ajax/asignacion.php?op=doblemateri&materi_id="+materi_id+"&grupo_id="+grupo_id+"&cat_id="+cat_id,function (o){
+									/* 4TA VALIDACION: LA MISMA MATERIA NO PUEDE SER REGISTRADA EN EL MISMO CAT Y GRUPO */			
+									if(o < 1){
+										guardaryeditar(e);
+										location.reload();
+									}else{
+										bootbox.alert("No es posible realizar la asignación, la materia para el cat, programa, nivel y grupo ya fue registrada");
+										
+									}
+								});
+
+							}else{
+								bootbox.alert("No es posible realizar la asignación, hay cruce de materias para el cat, programa, nivel y grupo que intenta registrar");
+								
+							}
+						});
+					}else{
+						bootbox.alert("No es posible la realizar, asignación el docente identificado con documento: "+docent_document+" tiene cruce de horario");
+						
+					}
 				});
 
 
 			}else{
-				alert("El docente identificado con documento: "+docent_document+ " tiene: "+r+" cursos asignados y el máximo son 4");
+				bootbox.alert("No es posible la realizar,el docente identificado con documento: "+docent_document+ " tiene: "+r+" cursos asignados y el máximo son 4");
 				
 			}
 		});
@@ -236,53 +253,29 @@ function listar()
 //FUNCION PARA GUARDAR Y EDITAR
 function guardaryeditar(e){
 	alert("okkk"); 
-	//return false;
-/*	var cat_id = $("#cat_id").val();
-	var despla_id= $("#despla_id").val();
-	var materi_id = $("#materi_id").val();
-	var docent_document = $("#docent_documento").val();
-	var grupo_id = $("#grupo_id").val();
-	var semana_id= $("#semana_id").val();
-	var dia_id = $("#dia_id").val();
-	var hora_id= $("#hora_id").val();
-	var asigna_lidart = $("#asigna_lidart").val();
-	var asigna_salon= $("#asigna_salon").val();
-	var asigna_observ = $("#asigna_observ").val();
-	var usuari_usuario = $("#usuari_usuario").val();
-	alert(docent_document);*/
-
-	/*$.post("../ajax/asignacion.php?op=cursosAsigna&docent_document="+docent_document,function (r){
-		//bootbox.alert("Numero de cursos asignados al docente seleccionado: "+r);
-		if(r < 4){
-			alert("se puede registrar");*/
-			//e.preventDefault(); //No se activará la acción predeterminada del evento
-			$("#btnGuardar").prop("disabled",true);
-			var formData = new FormData($("#formulario")[0]);
-			//console.log(formData);
-			//return false;
-			$.ajax({
-				url: "../ajax/asignacion.php?op=guardaryeditar",
-			    type: "POST",
-			    data: formData,
-			    contentType: false,
-			    processData: false,
-
-			    success: function(datos)
-			    {                    
-			         alert(datos);	          
-			         // mostrarform(false);
-			          //tabla.ajax.reload();
-			    }
-			 
-
-			});
-			limpiar();
-			
-		/*}else{
-			alert("El docente identificado con documento: "+docent_document+ " tiene: "+r+" cursos asignados y el máximo son 4");
-		}
-	});*/
 	
+	$("#btnGuardar").prop("disabled",true);
+	var formData = new FormData($("#formulario")[0]);
+	//console.log(formData);
+	//return false;
+	$.ajax({
+		url: "../ajax/asignacion.php?op=guardaryeditar",
+	    type: "POST",
+	    data: formData,
+	    contentType: false,
+	    processData: false,
+	    
+	    success: function(datos)
+	    {                    
+	        bootbox.alert(datos);	          
+	        // mostrarform(false);
+	        //tabla.ajax.reload();
+	    }
+	 
+
+	});
+	limpiar();
+			
 }
 
 function mostrar(asigna_id){
