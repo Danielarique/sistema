@@ -20,21 +20,91 @@ if($_SESSION['asignacion']==1){
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">ASIGNACIÓN ACADÉMICA</h1>
+                          <h1 class="box-title">ASIGNACIÓN ACADÉMICA  <button class="btn btn-success" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
                         
                     </div>
                     <!-- /.box-header -->
                     <!-- centro -->
+                    <div class="panel-body table-responsive" id="listadoregistros">
+                      <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
+                        <thead>
+                          <th>Opciones</th>
+                          <th>Cód. CAT</th>
+                          <th>Nombre CAT</th>
+                          <th>Cód. programa</th>
+                          <th>Nombre programa</th>
+                          <th>Semestre </th>
+                          <th>Grupo</th>
+                          <th>Cod. curso</th>
+                          <th>Nombre curso</th>
+                          <th>Perfil establecido</th>
+                          <th>Semana</th>
+                          <th>Día</th>
+                          <th>Hora</th>
+                          <th>Horas curso</th>
+                          <th>Horas art. cur.</th>
+                          <th>Horas prac. cur.</th>
+                          <th>Horas lid. art. cur.</th>
+                          <th>Doc. docente</th>
+                          <th>Nombre docente </th>
+                          <th>Perfil docente</th>
+                          <th>Residencia docente </th>
+                          <th>Telefono docente</th>
+                          <th>Celular docente</th>
+                          <th>Email inst. docente</th>
+                          <th>Email pers. docente</th>
+                          <th>Planta</th>
+                          <th>Origen</th>
+                          <th>Destino</th>
+                          <th>Salon</th>
+                          <th>Observaciones</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot>
+                          <th>Opciones</th>
+                          <th>Cód. CAT</th>
+                          <th>Nombre CAT</th>
+                          <th>Cód. programa</th>
+                          <th>Nombre programa</th>
+                          <th>Semestre </th>
+                          <th>Grupo</th>
+                          <th>Cod. curso</th>
+                          <th>Nombre curso</th>
+                          <th>Perfil establecido</th>
+                          <th>Semana</th>
+                          <th>Día</th>
+                          <th>Hora</th>
+                          <th>Horas curso</th>
+                          <th>Horas art. cur.</th>
+                          <th>Horas prac. cur.</th>
+                          <th>Horas lid. art. cur.</th>
+                          <th>Doc. docente</th>
+                          <th>Nombre docente </th>
+                          <th>Perfil docente</th>
+                          <th>Residencia docente </th>
+                          <th>Telefono docente</th>
+                          <th>Celular docente</th>
+                          <th>Email inst. docente</th>
+                          <th>Email pers. docente</th>
+                          <th>Planta</th>
+                          <th>Origen</th>
+                          <th>Destino</th>
+                          <th>Salon</th>
+                          <th>Observaciones</th>
+                        </tfoot>
+                      </table>
+                    </div>
                     <div class="panel-body" style="height: 500px;" id="formularioregistros">
                       <div class="container" id="advanced-search-form" style="height: 400px">
                         <h2 align="center">INGRESAR ASIGNACIÓN</h2>
                         <form name="formulario" id="formulario" method="POST">
-                          <input type="text" name="usuari_id" id="usuari_id" value="<?php echo $_SESSION["USUARI_ID"]; ?>">
-                          <input type="text" name="usuari_usuario" id="usuari_usuario" value="<?php echo $_SESSION['USUARI_USUARIO']; ?>">
+                          <input type="hidden" name="usuari_id" id="usuari_id" value="<?php echo $_SESSION["USUARI_ID"]; ?>">
+                          <input type="hidden" name="usuari_usuario" id="usuari_usuario" value="<?php echo $_SESSION['USUARI_USUARIO']; ?>">
                           <table>
                             <tr>
                               <td>
-                                <input type="text" name="asigna_id" id="asigna_id">
+                                <input type="hidden" name="asigna_id" id="asigna_id">
                                 <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 100px">
                                   <label>CAT:</label>
                                   <select class="selectpicker" data-live-search="true" name="cat_id" id="cat_id" style="text-transform: uppercase;text-decoration:none;align-content: left">

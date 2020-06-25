@@ -34,7 +34,9 @@ Class Priv_Progra
 
 	//SE IMPLEMENTA METODO PARA MOSTRAR LOS PRIVILEGIOS DEL PROGRAMA QUE TENGA EL USUARIO
 	public function listarmarcados($usuari_id){
-		$sql="SELECT PRIVIL_ID, PROGRA_ID FROM privilegio_progra  WHERE USUARI_ID='$usuari_id'";
+		$sql="SELECT pp.PRIVIL_ID AS PRIVIL_ID, pp.PROGRA_ID AS PROGRA_ID, pr.PROGRA_NOMBRE AS PROGRA_NOMBRE 
+			  FROM privilegio_progra AS pp INNER JOIN programa pr ON(pp.PROGRA_ID=pr.PROGRA_ID)  
+			  WHERE pp.USUARI_ID='$usuari_id'";
 		return ejecutarConsulta($sql);
 	}
 }

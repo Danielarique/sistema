@@ -21,7 +21,7 @@ if($_SESSION['privi_catprogra']==1){
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Privilegios Cat-Programas</h1>
+                          <h1 class="box-title">Privilegios Cats-Programas</h1>
                     </div>
                     <!-- /.box-header -->
                     <!-- centro -->

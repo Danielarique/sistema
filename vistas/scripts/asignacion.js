@@ -3,8 +3,8 @@ var tabla;
 
 //FUNCION QUE SE EJECUTA AL INICIO
 function init(){
-	mostrarform(true);
-	//listar();
+	mostrarform(false);
+	listar();
 	 $(document).ready(function () {
 	 	
         $('#docent_documento').typeahead({
@@ -93,8 +93,8 @@ function init(){
 				$.post("../ajax/asignacion.php?op=cruceHorari&docent_document="+docent_document+"&semana_id="+semana_id+
 					"&dia_id="+dia_id+"&hora_id="+hora_id,function (m){
 				/* 2DA VALIDACION: LOS DOCENTES NO PUEDEN TENER MAS DE UNA MATERIA LA MISMA SEMANA, DIA Y HORA */			
+					//	console.log("valor "+m);
 					if(m < 1 || docent_document==0){
-						//console.log("valor "+m);
 						$.post("../ajax/asignacion.php?op=cruceMateri&materi_id="+materi_id+"&semana_id="+semana_id+
 							"&dia_id="+dia_id+"&hora_id="+hora_id+"&grupo_id="+grupo_id+"&cat_id="+cat_id,function (n){
 							/* 3RA VALIDACION: EL MISMO CAT, PROGRAMA, NIVEL (SEMESTRE) Y GRUPO NO PUEDEN TENER MAS DE UNA MATERIA A LA MISMA HORA, DIA Y SEMANA */			
@@ -102,8 +102,8 @@ function init(){
 								$.post("../ajax/asignacion.php?op=doblemateri&materi_id="+materi_id+"&grupo_id="+grupo_id+"&cat_id="+cat_id,function (o){
 									/* 4TA VALIDACION: LA MISMA MATERIA NO PUEDE SER REGISTRADA EN EL MISMO CAT Y GRUPO */			
 									if(o < 1){
-										guardaryeditar(e);
-										location.reload();
+										//guardaryeditar(e);
+										//location.reload();
 									}else{
 										bootbox.alert("No es posible realizar la asignación, la materia para el cat, programa, nivel y grupo ya fue registrada");
 										
@@ -116,11 +116,10 @@ function init(){
 							}
 						});
 					}else{
-						bootbox.alert("No es posible la realizar, asignación el docente identificado con documento: "+docent_document+" tiene cruce de horario");
+						bootbox.alert("No es posible la realizar asignación, el docente identificado con documento: "+docent_document+" tiene cruce de horario");
 						
 					}
 				});
-
 
 			}else{
 				bootbox.alert("No es posible la realizar,el docente identificado con documento: "+docent_document+ " tiene: "+r+" cursos asignados y el máximo son 4");
@@ -230,7 +229,6 @@ function listar()
 	    buttons: [		          
 		            'copyHtml5',
 		            'excelHtml5',
-		            'csvHtml5',
 		            'pdf'
 		        ],
 		"ajax":
@@ -264,7 +262,7 @@ function guardaryeditar(e){
 	    data: formData,
 	    contentType: false,
 	    processData: false,
-	    
+
 	    success: function(datos)
 	    {                    
 	        bootbox.alert(datos);	          

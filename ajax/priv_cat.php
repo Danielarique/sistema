@@ -47,6 +47,19 @@ switch ($_GET["op"]) {
  		echo json_encode($results);
 
 	break;
+
+	case 'priv_cat2':
+
+		//Obtenemos los permisos asignados al usuario
+		$usuari_id = $_GET["usuari_id"];
+		$rspta = $priv_cat->listarmarcados($usuari_id);
+		
+		while($reg= $rspta->fetch_object()) {
+			
+			echo '<li>'.$reg->CAT_NOMBRE.'</li>';
+		}
+
+	break;
 }
 
 

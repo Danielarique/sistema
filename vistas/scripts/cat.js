@@ -72,7 +72,6 @@ function listar()
 	    buttons: [		          
 		            'copyHtml5',
 		            'excelHtml5',
-		            'csvHtml5',
 		            'pdf'
 		        ],
 		"ajax":
@@ -81,7 +80,7 @@ function listar()
 					type : "get",
 					dataType : "json",						
 					error: function(e){
-						console.log(e.responseText);	
+					//	console.log(e.responseText);	
 					}
 				},
 		"bDestroy": true,

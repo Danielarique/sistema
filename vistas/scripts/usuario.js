@@ -31,9 +31,9 @@ function init(){
 		
 		
 	});
-		$.post("../ajax/usuario.php?op=privil_modulo&id=", function(r){
-			$("#privil_modulo").html(r);
-		});
+	$.post("../ajax/usuario.php?op=privil_modulo&id=", function(r){
+		$("#privil_modulo").html(r);
+	});
 	
 }
 
@@ -84,7 +84,6 @@ function listar()
 	    buttons: [		          
 		            'copyHtml5',
 		            'excelHtml5',
-		            'csvHtml5',
 		            'pdf'
 		        ],
 		"ajax":
@@ -151,9 +150,11 @@ function eliminar(usuari_id){
 	bootbox.confirm("¿Está seguro de eliminar Usuario??", function(result){
 		if(result){
 			$.post("../ajax/usuario.php?op=eliminar",{usuari_id : usuari_id}, function(e){
+
 				bootbox.alert(e);
 				tabla.ajax.reload();
 			});
+			
 		}
 	})
 }

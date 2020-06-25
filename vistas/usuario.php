@@ -21,7 +21,7 @@ if($_SESSION['usuario']==1){
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Usuarios<button class="btn btn-success" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
+                          <h1 class="box-title">Usuarios  <button class="btn btn-success" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -106,7 +106,7 @@ if($_SESSION['usuario']==1){
                                 </td>
                                 <td>
                                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 200px">
-                                    <label>Privilegios Modelos:</label>
+                                    <label>Privilegios Modulos:</label>
                                     <ul style="list-style: none;" id="privil_modulo">     
                                     </ul>
                                   </div>

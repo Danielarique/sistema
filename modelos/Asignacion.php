@@ -133,7 +133,7 @@ Class Asigna
 			  INNER JOIN dia AS di ON a.DIA_ID=di.DIA_ID
 			  INNER JOIN hora AS ho ON a.HORA_ID=ho.HORA_ID
 			  INNER JOIN docentes AS d ON a.DOCENT_ID=d.DOCENT_ID
-			  WHERE a.ASIGNA_SEMANA='$semana_id' AND di.DIA_ID='$dia_id' AND ho.HORA_ID='$dia_id' 
+			  WHERE a.ASIGNA_SEMANA='$semana_id' AND di.DIA_ID='$dia_id' AND ho.HORA_ID='$hora_id' 
 			  AND d.DOCENT_DOCUMENTO='$docent_document'";
 		return ejecutarConsulta($sql);
 	}

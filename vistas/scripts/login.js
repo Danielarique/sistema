@@ -21,7 +21,7 @@ function init(){
 			{"logina":logina,"clavea":clavea},
 			function(data){	
 			    if(data!="null"){
-					$(location).attr("href","usuario.php");
+					$(location).attr("href","home.php");
 			    }
 			    else{
 					bootbox.alert("Usuario y/o Password incorrectos");

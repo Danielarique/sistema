@@ -97,7 +97,6 @@ function listar()
 	    buttons: [		          
 		            'copyHtml5',
 		            'excelHtml5',
-		            'csvHtml5',
 		            'pdf'
 		        ],
 		"ajax":
@@ -106,7 +105,7 @@ function listar()
 					type : "get",
 					dataType : "json",						
 					error: function(e){
-						console.log(e.responseText);	
+						//console.log(e.responseText);	
 					}
 				},
 		"bDestroy": true,
@@ -168,7 +167,7 @@ function mostrar(docent_id){
 function eliminar(docent_id){
 	bootbox.confirm("¿Está seguro de eliminar Docente?", function(result){
 		if(result){
-			alert(result);
+			
 			$.post("../ajax/docente.php?op=eliminar",{docent_id : docent_id}, function(e){
 				bootbox.alert(e);
 				tabla.ajax.reload();
