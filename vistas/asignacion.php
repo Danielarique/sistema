@@ -99,12 +99,12 @@ if($_SESSION['asignacion']==1){
                       <div class="container" id="advanced-search-form" style="height: 400px">
                         <h2 align="center">INGRESAR ASIGNACIÓN</h2>
                         <form name="formulario" id="formulario" method="POST">
+                          <input type="hidden" class="form-control"  name="asigna_id" id="asigna_id">
                           <input type="hidden" name="usuari_id" id="usuari_id" value="<?php echo $_SESSION["USUARI_ID"]; ?>">
                           <input type="hidden" name="usuari_usuario" id="usuari_usuario" value="<?php echo $_SESSION['USUARI_USUARIO']; ?>">
                           <table>
                             <tr>
                               <td>
-                                <input type="hidden" name="asigna_id" id="asigna_id">
                                 <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 100px">
                                   <label>CAT:</label>
                                   <select class="selectpicker" data-live-search="true" name="cat_id" id="cat_id" style="text-transform: uppercase;text-decoration:none;align-content: left">

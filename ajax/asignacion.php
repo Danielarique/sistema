@@ -151,13 +151,19 @@ switch ($_GET["op"]) {
 
 	case 'cursosAsigna':
 		$docent_document = $_GET["docent_document"];
+		$asigna_id = $_GET["asigna_id"];
 		$rspta=$asigna->cursosAsigna($docent_document);
 
 		$cantid = 0;
-		while ($reg = $rspta->fetch_object()) {
+		$menos = 0;
+		while ($reg = $rspta->fetch_object()) {	
+			if($reg->ASIGNA_ID == $asigna_id){
+				$menos++;
+			}
 			$cantid++;
 		}
-		echo $cantid;
+		$canti2 = $cantid-$menos;
+		echo $canti2;
 	break;
 
 	case 'cruceHorari':
@@ -165,13 +171,19 @@ switch ($_GET["op"]) {
 		$semana_id = $_GET["semana_id"];
 		$dia_id = $_GET["dia_id"];
 		$hora_id = $_GET["hora_id"];
+		$asigna_id = $_GET["asigna_id"];
 		$rspta=$asigna->cruceHorari($docent_document,$semana_id,$dia_id,$hora_id);
 
 		$cantid = 0;
-		while ($reg = $rspta->fetch_object()) {
+		$menos = 0;
+		while ($reg = $rspta->fetch_object()) {	
+			if($reg->ASIGNA_ID == $asigna_id){
+				$menos++;
+			}
 			$cantid++;
 		}
-		echo $cantid;
+		$canti2 = $cantid-$menos;
+		echo $canti2;
 	break;
 
 	case 'cruceMateri':
@@ -181,26 +193,38 @@ switch ($_GET["op"]) {
 		$hora_id = $_GET["hora_id"];
 		$grupo_id = $_GET["grupo_id"];
 		$cat_id = $_GET["cat_id"];
+		$asigna_id = $_GET["asigna_id"]; 
 		$rspta=$asigna->cruceMateri($materi_id,$semana_id,$dia_id,$hora_id,$grupo_id,$cat_id);
 
 		$cantid = 0;
-		while ($reg = $rspta->fetch_object()) {
+		$menos = 0;
+		while ($reg = $rspta->fetch_object()) {	
+			if($reg->ASIGNA_ID == $asigna_id){
+				$menos++;
+			}
 			$cantid++;
 		}
-		echo $cantid;
+		$canti2 = $cantid-$menos;
+		echo $canti2;
 	break;
 
 	case 'doblemateri':
 		$materi_id = $_GET["materi_id"];
 		$grupo_id = $_GET["grupo_id"];
 		$cat_id = $_GET["cat_id"];
+		$asigna_id = $_GET["asigna_id"]; 
 		$rspta=$asigna->doblemateri($materi_id,$grupo_id,$cat_id);
 
 		$cantid = 0;
-		while ($reg = $rspta->fetch_object()) {
+		$menos = 0;
+		while ($reg = $rspta->fetch_object()) {	
+			if($reg->ASIGNA_ID == $asigna_id){
+				$menos++;
+			}
 			$cantid++;
 		}
-		echo $cantid;
+		$canti2 = $cantid-$menos;
+		echo $canti2;
 	break;
 
 }

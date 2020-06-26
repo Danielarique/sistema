@@ -152,7 +152,7 @@ Class Asigna
          		$materi_semest= $res['MATERI_SEMESTRE'];
         }
 
-		$sql="SELECT CAT_ID, ASIGNA_GRUPO, ASIGNA_SEMANA, DIA_ID, HORA_ID
+		$sql="SELECT ASIGNA_ID,CAT_ID, ASIGNA_GRUPO, ASIGNA_SEMANA, DIA_ID, HORA_ID
 			FROM asignacion
 			WHERE asignacion.MATERI_ID IN (
 			SELECT materia.MATERI_ID

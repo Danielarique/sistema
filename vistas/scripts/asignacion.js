@@ -43,6 +43,7 @@ function init(){
     });
 
 	$("#formulario").on("submit",function(e){
+		
 		e.preventDefault();
 		//VALIDA QUE LOS CAMPOS OBLIGATORIOS NO ESTEN VACIOS	
 		if($("#cat_id").val()==""){
@@ -86,47 +87,54 @@ function init(){
 		var materi_id = $("#materi_id").val();
 		var grupo_id = $("#grupo_id").val();
 		var cat_id = $("#cat_id").val();
+		var asigna_id = $("#asigna_id").val();
+			
 		
-		$.post("../ajax/asignacion.php?op=cursosAsigna&docent_document="+docent_document,function (r){
-			/* 1RA VALIDACION: LOS DOCENTES NO DEBEN TENER MAS DE 4 MATERIAS ASIGNADAS, A MENOS QUE SEA DOCENTE=0 (NO APLICA) */		
-			if(r < 4  || docent_document==0){	
-				$.post("../ajax/asignacion.php?op=cruceHorari&docent_document="+docent_document+"&semana_id="+semana_id+
-					"&dia_id="+dia_id+"&hora_id="+hora_id,function (m){
-				/* 2DA VALIDACION: LOS DOCENTES NO PUEDEN TENER MAS DE UNA MATERIA LA MISMA SEMANA, DIA Y HORA */			
-					//	console.log("valor "+m);
-					if(m < 1 || docent_document==0){
-						$.post("../ajax/asignacion.php?op=cruceMateri&materi_id="+materi_id+"&semana_id="+semana_id+
-							"&dia_id="+dia_id+"&hora_id="+hora_id+"&grupo_id="+grupo_id+"&cat_id="+cat_id,function (n){
-							/* 3RA VALIDACION: EL MISMO CAT, PROGRAMA, NIVEL (SEMESTRE) Y GRUPO NO PUEDEN TENER MAS DE UNA MATERIA A LA MISMA HORA, DIA Y SEMANA */			
-							if(n < 1){
-								$.post("../ajax/asignacion.php?op=doblemateri&materi_id="+materi_id+"&grupo_id="+grupo_id+"&cat_id="+cat_id,function (o){
-									/* 4TA VALIDACION: LA MISMA MATERIA NO PUEDE SER REGISTRADA EN EL MISMO CAT Y GRUPO */			
-									if(o < 1){
-										//guardaryeditar(e);
-										//location.reload();
-									}else{
-										bootbox.alert("No es posible realizar la asignación, la materia para el cat, programa, nivel y grupo ya fue registrada");
-										
-									}
-								});
 
-							}else{
-								bootbox.alert("No es posible realizar la asignación, hay cruce de materias para el cat, programa, nivel y grupo que intenta registrar");
-								
-							}
-						});
-					}else{
-						bootbox.alert("No es posible la realizar asignación, el docente identificado con documento: "+docent_document+" tiene cruce de horario");
-						
-					}
-				});
+			$.post("../ajax/asignacion.php?op=cursosAsigna&docent_document="+docent_document+"&asigna_id="+asigna_id,function (r){
+				//console.log("valor r "+r);
+				/* 1RA VALIDACION: LOS DOCENTES NO DEBEN TENER MAS DE 4 MATERIAS ASIGNADAS, A MENOS QUE SEA DOCENTE=0 (NO APLICA) */		
+				if(r < 4  || docent_document==0){	
+					$.post("../ajax/asignacion.php?op=cruceHorari&docent_document="+docent_document+"&semana_id="+semana_id+
+						"&dia_id="+dia_id+"&hora_id="+hora_id+"&asigna_id="+asigna_id,function (m){
+					/* 2DA VALIDACION: LOS DOCENTES NO PUEDEN TENER MAS DE UNA MATERIA LA MISMA SEMANA, DIA Y HORA */			
+							//console.log("valor m "+m);
+						if(m < 1 || docent_document==0){
+							$.post("../ajax/asignacion.php?op=cruceMateri&materi_id="+materi_id+"&semana_id="+semana_id+
+								"&dia_id="+dia_id+"&hora_id="+hora_id+"&grupo_id="+grupo_id+"&cat_id="+cat_id+"&asigna_id="+asigna_id,function (n){
+								//console.log("valor n "+n);
+								/* 3RA VALIDACION: EL MISMO CAT, PROGRAMA, NIVEL (SEMESTRE) Y GRUPO NO PUEDEN TENER MAS DE UNA MATERIA A LA MISMA HORA, DIA Y SEMANA */			
+								if(n < 1){
+									$.post("../ajax/asignacion.php?op=doblemateri&materi_id="+materi_id+"&grupo_id="+grupo_id+"&cat_id="+cat_id+"&asigna_id="+asigna_id,function (o){
+										//console.log("valor o "+o);
+										/* 4TA VALIDACION: LA MISMA MATERIA NO PUEDE SER REGISTRADA EN EL MISMO CAT Y GRUPO */			
+										if(o < 1){
+											guardaryeditar();
+										//	location.reload();
+										}else{
+											bootbox.alert("No es posible realizar la asignación, la materia para el cat, programa, nivel y grupo ya fue registrada");
+											
+										}
+									});
 
-			}else{
-				bootbox.alert("No es posible la realizar,el docente identificado con documento: "+docent_document+ " tiene: "+r+" cursos asignados y el máximo son 4");
-				
-			}
-		});
-	//	guardaryeditar(e);
+								}else{
+									bootbox.alert("No es posible realizar la asignación, hay cruce de materias para el cat, programa, nivel y grupo que intenta registrar");
+									
+								}
+							});
+						}else{
+							bootbox.alert("No es posible la realizar asignación, el docente identificado con documento: "+docent_document+" tiene cruce de horario");
+							
+						}
+					});
+
+				}else{
+					bootbox.alert("No es posible la realizar,el docente identificado con documento: "+docent_document+ " tiene: "+r+" cursos asignados y el máximo son 4");
+					
+				}
+			});
+
+
 				
 		
 		
@@ -186,6 +194,7 @@ function autoco_docente(docent)
 //FUNCION PARA LIMPIAR CAMPOS
 function limpiar()
 {
+	$("#asigna_id").val("");
 	$("#docent_documento").val("");
 	$("#docent_nombre").val("");
 	$("#asigna_lidart").val("");
@@ -249,7 +258,7 @@ function listar()
 }
 
 //FUNCION PARA GUARDAR Y EDITAR
-function guardaryeditar(e){
+/*function guardaryeditar(e){
 	alert("okkk"); 
 	
 	$("#btnGuardar").prop("disabled",true);
@@ -272,6 +281,41 @@ function guardaryeditar(e){
 	 
 
 	});
+	limpiar();
+			
+}*/
+
+function guardaryeditar(){ 
+	
+	$("#btnGuardar").prop("disabled",true);
+	//var formData = new FormData($("#formulario")[0]);
+	var asigna_id = $("#asigna_id").val();
+	var cat_id = $("#cat_id").val();
+	var despla_id = $("#despla_id").val();
+	var materi_id = $("#materi_id").val();
+	var docent_documento = $("#docent_documento").val();
+	var grupo_id = $("#grupo_id").val();
+	var semana_id = $("#semana_id").val();
+	var dia_id = $("#dia_id").val();
+	var hora_id = $("#hora_id").val();
+	var asigna_lidart = $("#asigna_lidart").val();
+	var asigna_salon = $("#asigna_salon").val();
+	var asigna_observ = $("#asigna_observ").val();
+	var asigna_usuadigi = $("#usuari_usuario").val();
+	/*console.log(asigna_id,cat_id,despla_id,materi_id,docent_document,grupo_id,semana_id,dia_id,hora_id,asigna_lidart,
+		asigna_salon,asigna_observ,asigna_usuadigi);*/
+	
+	//console.log(formData);
+	//return false;
+	$.post("../ajax/asignacion.php?op=guardaryeditar",{asigna_id : asigna_id, cat_id : cat_id,despla_id : despla_id, 
+		materi_id : materi_id,docent_documento : docent_documento, grupo_id : grupo_id,semana_id : semana_id, dia_id : dia_id,
+		hora_id : hora_id, asigna_lidart : asigna_lidart,asigna_salon : asigna_salon, asigna_observ : asigna_observ,
+		asigna_usuadigi : asigna_usuadigi}, function(data,status){
+			bootbox.alert(data);	          
+	        mostrarform(false);
+	        tabla.ajax.reload();
+	});
+	
 	limpiar();
 			
 }
