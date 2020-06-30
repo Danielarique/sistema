@@ -42,6 +42,14 @@ function init(){
 	});
 	
 }
+$(function() {
+
+    $( "#docent_fechaing" ).datepicker({
+      changeMonth: true,
+      changeYear: true,
+      
+    });
+});
 
 //FUNCION PARA LIMPIAR CAMPOS
 function limpiar()

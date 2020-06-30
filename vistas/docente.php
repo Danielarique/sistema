@@ -86,7 +86,7 @@ if($_SESSION['docente']==1){
                                 <td>
                                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 160px;margin-left: 0px">
                                     <label>Fecha Ingreso:</label>
-                                    <input size="16" type="text" class="form-control" name="docent_fechaing" id="docent_fechaing">
+                                    <input size="16" type="text" class="form-control" name="docent_fechaing" id="docent_fechaing" readonly>
                                   </div>
                                 </td>
                               </tr>

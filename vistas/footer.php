@@ -22,6 +22,7 @@
     <script src="../public/js/bootbox.min.js"></script>
     <script src="../public/js/bootstrap-select.min.js"></script>
     <script src="../public/js/typeahead.js"></script>
+    <script src="../public/js/jquery-ui.js"></script>
 
   </body>
 </html>
