@@ -230,6 +230,7 @@ function cancelarform()
 
 function listar()
 {
+	var usuari_id = $("#usuari_id").val();
 	tabla=$('#tbllistado').dataTable(
 	{
 		"aProcessing": true,//Activamos el procesamiento del datatables
@@ -242,7 +243,7 @@ function listar()
 		        ],
 		"ajax":
 				{
-					url: '../ajax/asignacion.php?op=listar',
+					url: '../ajax/asignacion.php?op=listar&usuari_id='+usuari_id,
 					type : "get",
 					dataType : "json",						
 					error: function(e){
@@ -302,6 +303,7 @@ function guardaryeditar(){
 	var asigna_salon = $("#asigna_salon").val();
 	var asigna_observ = $("#asigna_observ").val();
 	var asigna_usuadigi = $("#usuari_usuario").val();
+
 	/*console.log(asigna_id,cat_id,despla_id,materi_id,docent_document,grupo_id,semana_id,dia_id,hora_id,asigna_lidart,
 		asigna_salon,asigna_observ,asigna_usuadigi);*/
 	
@@ -347,7 +349,8 @@ function mostrar(asigna_id){
 function eliminar(asigna_id){
 	bootbox.confirm("¿Está seguro de eliminar Asignación??", function(result){
 		if(result){
-			$.post("../ajax/asignacion.php?op=eliminar",{asigna_id : asigna_id}, function(e){
+			var asigna_usuadigi = $("#usuari_usuario").val();
+			$.post("../ajax/asignacion.php?op=eliminar",{asigna_id : asigna_id, asigna_usuadigi : asigna_usuadigi}, function(e){
 				bootbox.alert(e);
 				tabla.ajax.reload();
 			});

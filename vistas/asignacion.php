@@ -21,6 +21,7 @@ if($_SESSION['asignacion']==1){
                   <div class="box">
                     <div class="box-header with-border">
                           <h1 class="box-title">ASIGNACIÓN ACADÉMICA  <button class="btn btn-success" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
+                    <input type="text" name="usuari_usuario" id="usuari_usuario" value="<?php echo $_SESSION['USUARI_USUARIO']; ?>">
                         
                     </div>
                     <!-- /.box-header -->
@@ -101,7 +102,7 @@ if($_SESSION['asignacion']==1){
                         <form name="formulario" id="formulario" method="POST">
                           <input type="hidden" class="form-control"  name="asigna_id" id="asigna_id">
                           <input type="hidden" name="usuari_id" id="usuari_id" value="<?php echo $_SESSION["USUARI_ID"]; ?>">
-                          <input type="hidden" name="usuari_usuario" id="usuari_usuario" value="<?php echo $_SESSION['USUARI_USUARIO']; ?>">
+                          
                           <table>
                             <tr>
                               <td>
@@ -223,7 +224,7 @@ if($_SESSION['asignacion']==1){
                           </table>
                           <table align="center">
                             <td style="width: 200px" align="center">
-                               <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i>   Guardar</button>
+                               <button class="btn btn-primary"  type="submit" id="btnGuardar"><i class="fa fa-save"></i>   Guardar</button>
                             </td>
                             <td style="width: 200px" align="center">
                                  <button class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i>    Cancelar</button>

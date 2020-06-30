@@ -16,7 +16,7 @@ $hora_id=isset($_POST["hora_id"])? limpiarCadena($_POST["hora_id"]):"";
 $asigna_lidart=isset($_POST["asigna_lidart"])? limpiarCadena($_POST["asigna_lidart"]):"";
 $asigna_salon=isset($_POST["asigna_salon"])? limpiarCadena($_POST["asigna_salon"]):"";
 $asigna_observ=isset($_POST["asigna_observ"])? limpiarCadena($_POST["asigna_observ"]):"";
-$asigna_usuadigi =isset($_POST["usuari_usuario"])? limpiarCadena($_POST["usuari_usuario"]):"";
+$asigna_usuadigi=isset($_POST["asigna_usuadigi"])? limpiarCadena($_POST["asigna_usuadigi"]):"";
 	
 
 //SE CONSULTA ID DE DOCENTE CON LA CEDULA Q SE VA A REGISTRAR
@@ -43,7 +43,7 @@ switch ($_GET["op"]) {
 	break;
 
 	case 'eliminar':
-		$rspta=$asigna->eliminar($asigna_id);
+		$rspta=$asigna->eliminar($asigna_id,$asigna_usuadigi);
 		echo $rspta ? "Asignación Eliminada" : "Asignación no se pudo eliminar";
 	break;
 
@@ -55,11 +55,43 @@ switch ($_GET["op"]) {
 	case 'listar':
 		$rspta=$asigna->listar();
 		$data = Array();
+		$usuari_id = $_GET["usuari_id"];
+
+		/*Consultamos los privilegios de cat y programas para permitir editar y eliminar solo asignaciones que se tengan privilegios */
+		$usuari_id = $_GET["usuari_id"];
+		require_once "../modelos/Priv_Cat.php";
+		$priv_cat = new Priv_Cat();
+		$rsptaCat = $priv_cat->listarmarcados($usuari_id);
+
+		$arrayCat = array();
+		$i = 0;
+		while ($regCat = $rsptaCat->fetch_object()) {
+			$arrayCat[$i] = $regCat->CAT_ID;
+			$i++; 
+		}
+
+		require_once "../modelos/Priv_Progra.php";
+		$priv_progra = new Priv_Progra();
+		$rsptaProgra = $priv_progra->listarmarcados($usuari_id);
+
+		$arrayProgra = array();
+		$j = 0;
+		while ($regProgra = $rsptaProgra->fetch_object()) {
+			$arrayProgra[$j] = $regProgra->PROGRA_ID;
+			$j++; 
+		}
 
 		while ($reg=$rspta->fetch_object()){
-		
+			if(in_array($reg->CAT_ID, $arrayCat) && in_array($reg->PROGRA_ID, $arrayProgra)){
+				$display = "inline;";	
+			}else{
+				$display = "none;";
+			}
+
 			$data[]=array(
-				"0"=>'<button class="btn btn-warning btn-xs" onclick="mostrar('.$reg->ASIGNA_ID.')"><i class="fa fa-pencil"></i></button>'.' &nbsp; &nbsp;<button class="btn btn-danger btn-xs" onclick="eliminar('.$reg->ASIGNA_ID.')"><i class="fa fa-trash"></i></button>',
+			
+				"0"=>'<button class="btn btn-warning btn-xs" style="display: '.$display.'" onclick="mostrar('.$reg->ASIGNA_ID.')"><i class="fa fa-pencil"></i></button>'.' &nbsp; &nbsp;<button class="btn btn-danger btn-xs" style="display: '.$display.'" onclick="eliminar('.$reg->ASIGNA_ID.')"><i class="fa fa-trash"></i></button>',
+			
 				"1"=>$reg->CAT_CODIGO,
 				"2"=>$reg->CAT_NOMBRE,
 				"3"=>$reg->PROGRA_CODIGO,

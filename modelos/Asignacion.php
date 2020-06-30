@@ -14,25 +14,22 @@ Class Asigna
 	public function insertar($cat_id,$despla_id,$materi_id,$docent_id,$grupo_id,$semana_id,$dia_id,$hora_id,$asigna_lidart,
 				$asigna_salon,$asigna_observ,$asigna_usuadigi)
 	{
+		$sql="INSERT INTO asignacion (CAT_ID, DESPLA_ID, MATERI_ID, DOCENT_ID, ASIGNA_GRUPO,ASIGNA_SEMANA, DIA_ID, HORA_ID,  
+					  			  ASIGNA_SALON, ASIGNA_LIDART, ASIGNA_OBSER, ASIGNA_USUADIGI, ASIGNA_FECHDIGI, ASIGNA_HORADIGI)
+	           		  VALUES('$cat_id','$despla_id','$materi_id','$docent_id','$grupo_id','$semana_id','$dia_id','$hora_id',
+	           		  		'$asigna_salon','$asigna_lidart','$asigna_observ','$asigna_usuadigi',CURDATE(),CURTIME())";
+	    
+		$asigna_id = ejecutarConsulta_retornarID($sql);
 
-		/*$sqlCursAsig="SELECT a.ASIGNA_ID AS ASIGNA_ID, doc.DOCENT_DOCUMENTO AS DOCENT_DOCUMENTO, doc.DOCENT_NOMBRE AS  DOCENT_NOMBRE
-			 		  FROM asignacion AS a
-					  INNER JOIN docentes AS doc ON(a.DOCENT_ID=doc.DOCENT_ID)
-					  WHERE doc.DOCENT_ID = '$docent_id'";
-		$result = ejecutarConsulta($sqlCursAsig);
-		$resCursAsig = mysqli_num_rows($result);
-		if($resCursAsig < 4){*/
-
-			$sql="INSERT INTO asignacion (CAT_ID, DESPLA_ID, MATERI_ID, DOCENT_ID, ASIGNA_GRUPO,ASIGNA_SEMANA, DIA_ID, HORA_ID,  
-						  			  ASIGNA_SALON, ASIGNA_LIDART, ASIGNA_OBSER, ASIGNA_USUADIGI, ASIGNA_FECHDIGI, ASIGNA_HORADIGI)
-		           		  VALUES('$cat_id','$despla_id','$materi_id','$docent_id','$grupo_id','$semana_id','$dia_id','$hora_id',
-		           		  		'$asigna_salon','$asigna_lidart','$asigna_observ','$asigna_usuadigi',CURDATE(),CURTIME())";
-		    
-			return ejecutarConsulta($sql);
-		/*	return $msg = "Asignación registrada";
-		}else{
-			return $msg = "El docente ya tiene cuatro o mas materias asignadas. ";
-		}*/
+		/* SE REALIZA INSERCION EN TABLA DE AUDITORIA*/
+		$sql_aud = "INSERT INTO aud_asignacion (ASIGNA_ID, CAT_ID, DESPLA_ID, MATERI_ID, DOCENT_ID, ASIGNA_GRUPO, ASIGNA_SEMANA,
+												DIA_ID, HORA_ID, ASIGNA_SALON, ASIGNA_LIDART, ASIGNA_OBSER, ASIGNA_USUADIGI, 
+												ASIGNA_FECHDIGI, ASIGNA_HORADIGI, AUDIT_OPERACION)
+	           		VALUES('$asigna_id','$cat_id','$despla_id','$materi_id','$docent_id','$grupo_id','$semana_id','$dia_id',
+	           		 		'$hora_id','$asigna_salon','$asigna_lidart','$asigna_observ','$asigna_usuadigi',CURDATE(),CURTIME(), 
+	           		 		'I')";
+	    return ejecutarConsulta($sql_aud);
+	
 		
 	}
 
@@ -48,15 +45,55 @@ Class Asigna
 								 ASIGNA_OBSER='$asigna_observ',ASIGNA_USUADIGI='$asigna_usuadigi',
 								 ASIGNA_FECHDIGI=CURDATE(),ASIGNA_HORADIGI=CURTIME()
 							WHERE ASIGNA_ID='$asigna_id'";
-		return ejecutarConsulta($sql);
+		ejecutarConsulta($sql);
+
+		/* SE REALIZA INSERCION EN TABLA DE AUDITORIA*/
+		$sql_aud = "INSERT INTO aud_asignacion (ASIGNA_ID, CAT_ID, DESPLA_ID, MATERI_ID, DOCENT_ID, ASIGNA_GRUPO, ASIGNA_SEMANA,
+												DIA_ID, HORA_ID, ASIGNA_SALON, ASIGNA_LIDART, ASIGNA_OBSER, ASIGNA_USUADIGI, 
+												ASIGNA_FECHDIGI, ASIGNA_HORADIGI, AUDIT_OPERACION)
+	           		VALUES('$asigna_id','$cat_id','$despla_id','$materi_id','$docent_id','$grupo_id','$semana_id','$dia_id',
+	           		 		'$hora_id','$asigna_salon','$asigna_lidart','$asigna_observ','$asigna_usuadigi',CURDATE(),CURTIME(), 
+	           		 		'U')";
+	    return ejecutarConsulta($sql_aud);
+
 
 	}
 
 	//SE IMPLEMENTA METODO PARA ELIMINAR REGISTROS 
-	public function eliminar($asigna_id)
+	public function eliminar($asigna_id,$asigna_usuadigi)
 	{
+
+		$sql_asigna="SELECT CAT_ID, DESPLA_ID,  MATERI_ID, DOCENT_ID, ASIGNA_GRUPO, ASIGNA_SEMANA, DIA_ID,  HORA_ID,  
+		   			 ASIGNA_SALON,ASIGNA_LIDART, ASIGNA_OBSER
+			  FROM   asignacion 
+			WHERE    ASIGNA_ID='$asigna_id'";
+		$result_asigna= ejecutarConsultaSimpleFila($sql_asigna);
+ 	
+        $cat_id= $result_asigna['CAT_ID'];
+ 		$despla_id= $result_asigna['DESPLA_ID'];
+ 		$materi_id= $result_asigna['MATERI_ID'];
+ 		$docent_id= $result_asigna['DOCENT_ID'];
+ 		$asigna_grupo= $result_asigna['ASIGNA_GRUPO'];
+ 		$asigna_semana= $result_asigna['ASIGNA_SEMANA'];
+ 		$dia_id= $result_asigna['DIA_ID'];
+ 		$hora_id= $result_asigna['HORA_ID'];
+ 		$asigna_salon= $result_asigna['ASIGNA_SALON'];
+ 		$asigna_lidart= $result_asigna['ASIGNA_LIDART'];
+ 		$asigna_observ= $result_asigna['ASIGNA_OBSER'];
+        
 		$sql="DELETE FROM asignacion WHERE ASIGNA_ID='$asigna_id'";
-		return ejecutarConsulta($sql);
+		ejecutarConsulta($sql);
+
+		/* SE REALIZA INSERCION EN TABLA DE AUDITORIA*/
+		$sql_aud = "INSERT INTO aud_asignacion (ASIGNA_ID, CAT_ID, DESPLA_ID, MATERI_ID, DOCENT_ID, ASIGNA_GRUPO, ASIGNA_SEMANA,
+												DIA_ID, HORA_ID, ASIGNA_SALON, ASIGNA_LIDART, ASIGNA_OBSER, ASIGNA_USUADIGI, 
+												ASIGNA_FECHDIGI, ASIGNA_HORADIGI, AUDIT_OPERACION)
+	           		VALUES('$asigna_id','$cat_id','$despla_id','$materi_id','$docent_id','$asigna_grupo','$asigna_semana','$dia_id',
+	           		 		'$hora_id','$asigna_salon','$asigna_lidart','$asigna_observ','$asigna_usuadigi',CURDATE(),CURTIME(), 
+	           		 		'D')";
+	    return ejecutarConsulta($sql_aud);
+
+
 	}
 
 	//SE IMPLEMENTA METODO PARA MOSTRAR LOS DATOS DE UN REGISTRO 
@@ -75,8 +112,8 @@ Class Asigna
 
 	//SE IMPLEMENTA METODO PARA MOSTRAR TODOS LOS REGISTROS
 	public function listar(){
-		$sql="SELECT a.ASIGNA_ID AS ASIGNA_ID,c.CAT_CODIGO AS CAT_CODIGO,c.CAT_NOMBRE AS CAT_NOMBRE,
-					 pr.PROGRA_CODIGO AS PROGRA_CODIGO,pr.PROGRA_NOMBRE AS PROGRA_NOMBRE,ma.MATERI_SEMESTRE AS MATERI_SEMESTRE,
+		$sql="SELECT a.ASIGNA_ID AS ASIGNA_ID,c.CAT_ID AS CAT_ID,c.CAT_CODIGO AS CAT_CODIGO,c.CAT_NOMBRE AS CAT_NOMBRE,
+					 pr.PROGRA_ID AS PROGRA_ID,pr.PROGRA_CODIGO AS PROGRA_CODIGO,pr.PROGRA_NOMBRE AS PROGRA_NOMBRE,ma.MATERI_SEMESTRE AS MATERI_SEMESTRE,
 					 a.ASIGNA_GRUPO AS ASIGNA_GRUPO,a.MATERI_ID AS MATERI_ID,ma.MATERI_CODIGO AS MATERI_CODIGO,ma.MATERI_NOMBRE AS MATERI_NOMBRE,
 					 SUBSTRING(ma.MATERI_PERFILEST,1,50) AS MATERI_PERFILEST,ma.MATERI_PERFILEST AS MATERI_PERFILEST2,a.ASIGNA_SEMANA AS ASIGNA_SEMANA, 
 					 di.DIA_NOMBRE AS DIA_NOMBRE, ho.HORA_HORA AS HORA_HORA, ma.MATERI_HORASCUR AS MATERI_HORASCUR, 

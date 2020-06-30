@@ -12,7 +12,7 @@ switch ($_GET["op"]) {
 	break;
 
 	case 'priv_progra':
-		//Obtenemos todos los cat
+		//Obtenemos todos los Programas
 		require_once("../modelos/Programa.php");
 		$programa = new Programa();
 		$rspta = $programa->listarProgra();
