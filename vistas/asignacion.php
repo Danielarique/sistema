@@ -242,7 +242,7 @@ if($_SESSION['asignacion']==1){
     </div><!-- /.content-wrapper -->
   <!--Fin-Contenido-->
 
-<?php 
+<?php  
 }else{
   require 'noacceso.php';
 }

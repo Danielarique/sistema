@@ -66,13 +66,13 @@ if($_SESSION['usuario']==1){
                                 <td>
                                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 200px">
                                     <label>Usuario:</label>
-                                    <input type="text" class="form-control" name="usuari_usuario" id="usuari_usuario" style="text-transform: uppercase; text-decoration: none;" onkeyup="sinEspa(this.value);">
+                                    <input type="text" class="form-control" name="usuari_usuario" id="usuari_usuario" style="text-decoration: none;">
                                   </div>
                                 </td>
                                 <td>
                                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 200px">
                                     <label>Password:</label>
-                                    <input type="password" class="form-control" name="usuari_password" id="usuari_password" style="text-transform: uppercase; text-decoration: none;">
+                                    <input type="password" class="form-control" name="usuari_password" id="usuari_password" style="text-decoration: none;">
                                   </div>
                                 </td>
                               </tr>

@@ -37,6 +37,10 @@
 						<input class="input100" type="password" name="clavea" id="clavea" placeholder="Contraseña">
 						<span class="focus-input100" data-placeholder="&#xe80f;"></span>
 					</div>
+					<div align="center" style="margin-top: 20px">
+					<a href="recupera.php">Olvidé mi contraseña</a><br>
+						
+					</div>
 
 					<div class="container-login100-form-btn m-t-32">
 						<button type="submit" class="login100-form-btn">

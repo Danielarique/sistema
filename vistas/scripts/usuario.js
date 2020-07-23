@@ -6,6 +6,35 @@ function init(){
 	mostrarform(false);
 	listar();
 
+	$("#usuari_email").on('blur',function(eventObject) {
+		var usuari_email = $("#usuari_email").val();
+		var usuari_id = $("#usuari_id").val();
+		var usuari_usuario = $("#usuari_usuario").val();
+		$.post("../ajax/usuario.php?op=email_existe&usuari_email="+usuari_email+
+			"&usuari_id="+usuari_id, function(data){
+			if(data>=1){
+				bootbox.alert("Ya existe un usuario registrado con el email "+usuari_email);
+				$("#usuari_email").val("");
+			}
+		});
+
+	});
+
+	$("#usuari_usuario").on('blur',function(event) {
+		var usuari_id = $("#usuari_id").val();
+		var usuari_usuario = $("#usuari_usuario").val();
+		var usuari_usuario2 = sinEspa(usuari_usuario);
+		$("#usuari_usuario").val(usuari_usuario2);
+		$.post("../ajax/usuario.php?op=usuari_existe&usuari_usuario="+usuari_usuario2+
+			"&usuari_id="+usuari_id, function(data){
+			if(data>=1){
+				bootbox.alert("Ya existe un usuario registrado con el usuario "+usuari_usuario2);
+				$("#usuari_usuario").val("");
+			}
+		});
+
+	});
+
 	$("#formulario").on("submit",function(e){
 		
 		if($("#usuari_nombres").val()==""){

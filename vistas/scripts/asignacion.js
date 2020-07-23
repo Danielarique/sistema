@@ -165,6 +165,17 @@ function init(){
 	
 }
 
+/*VALIDACION PARA QUE EN ESTE CAMPO SOLO SE PERMITAN DATOS NUMERICOS */
+$('#asigna_lidart').keyup(function(e)                                {
+  if (/\D/g.test(this.value))
+  {
+    bootbox.alert("Solo se permiten datos númericos en este campo");
+    // Filter non-digits from input value.
+    this.value = this.value.replace(/\D/g, '');
+  }
+});
+
+
 
 
 function cargDato(cat_id,docent_document){

@@ -1,7 +1,6 @@
 function sinEspa(valor){
-	//alert(valor);
-	var input =  $.trim($('#usuari_usuario').val())
-	//alert(input);
+	var valor2 = valor.replace(/ /g, "");
+	return valor2;
 }
 
 function numerico(e){

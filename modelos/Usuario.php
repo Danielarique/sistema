@@ -97,6 +97,34 @@ Class Usuario
 
 	}
 
+	//SE IMPLEMENTA METODO PARA VERIFICAR SI EL EMAIL YA EXISTE
+	public function email_existe($usuari_email){
+		$sql="SELECT USUARI_ID, USUARI_USUARIO,USUARI_EMAIL
+		      FROM usuario WHERE USUARI_EMAIL='$usuari_email'";
+		return ejecutarConsulta($sql);
+
+	}
+
+	//SE IMPLEMENTA METODO PARA VERIFICAR SI EL USUARIO YA EXISTE
+	public function usuari_existe($usuari_usuario){
+		$sql="SELECT USUARI_ID, USUARI_USUARIO
+		      FROM usuario WHERE USUARI_USUARIO='$usuari_usuario'";
+		return ejecutarConsulta($sql);
+
+	}
+	//SE IMPLEMENTA METODO PARA GENERAR STRING ALEATORIO
+	public function string_aleato($longitud) {
+	    $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	    $numero_caracteres = strlen($caracteres);
+	    $string_aleatorio = '';
+	    
+	    for ($i = 0; $i < $longitud; $i++) {
+	        $string_aleatorio .= $caracteres[rand(0, $numero_caracteres - 1)];
+	    }
+	    
+	    return $string_aleatorio;
+	}
+
 }
 
 

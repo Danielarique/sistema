@@ -50,8 +50,8 @@ a:focus {
 }
 
 a:hover {
-	text-decoration: none;
-  color: #fff;
+	text-decoration: underline;
+  color: #DE2323;
 }
 
 /*---------------------------------------------*/
