@@ -7,7 +7,7 @@ $progra_id=isset($_POST["progra_id"])? limpiarCadena($_POST["progra_id"]):"";
 $progra_codigo=isset($_POST["progra_codigo"])? limpiarCadena($_POST["progra_codigo"]):"";
 $progra_nombre=isset($_POST["progra_nombre"])? limpiarCadena($_POST["progra_nombre"]):"";
 $progra_email=isset($_POST["progra_email"])? limpiarCadena($_POST["progra_email"]):"";
-$progra_usuadigi = 'drique';
+$progra_usuadigi =isset($_POST["progra_usuadigi"])? limpiarCadena($_POST["progra_usuadigi"]):"";
 
 switch ($_GET["op"]) {
 	case 'guardaryeditar':

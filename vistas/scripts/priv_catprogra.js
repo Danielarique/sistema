@@ -24,7 +24,7 @@ function listar()
 					type : "get",
 					dataType : "json",						
 					error: function(e){
-						console.log(e.responseText);	
+						//console.log(e.responseText);	
 					}
 				},
 		"bDestroy": true,

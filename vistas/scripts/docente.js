@@ -38,10 +38,54 @@ function init(){
 		}
 
 		guardaryeditar(e);
-		
+		 
 	});
 	
 }
+
+/*VALIDACION PARA QUE EN ESTOS CAMPO SOLO SE PERMITAN DATOS NUMERICOS */
+$('#docent_documento, #docent_telefono, #docent_celular').keyup(function(e)                                {
+	if (/\D/g.test(this.value))
+	{
+	bootbox.alert("Solo se permiten datos númericos en este campo");
+	this.value = this.value.replace(/\D/g, '');
+	}
+});
+
+/*VALIDACION PARA QUE EN ESTOS CAMPO SOLO SE PERMITAN LETRAS */
+$('#docent_nombre').keyup(function(e)                                {
+	
+	if (/[^a-zA-ZÁÉÍÓÚáéíóúñÑ ]/g.test(this.value))
+	{
+		bootbox.alert("Solo se permiten letras en este campo");
+		this.value = this.value.replace(/[^a-zA-ZÁÉÍÓÚáéíóúñÑ ]/g, '');
+	}
+});
+
+
+/*VALIDACION PARA QUE EN ESTOS CAMPO SOLO SE PERMITAN EMAILS CORRECTOS */
+$('#docent_emailpers').blur(function(e){ 
+	if(this.value != ""){
+		re=/^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
+		if(!re.exec(this.value)){
+			bootbox.alert("El email ingresado no tiene un formato válido");
+			$('#docent_emailpers').val("");
+		}	
+	}                               
+
+});
+/*VALIDACION PARA QUE EN ESTOS CAMPO SOLO SE PERMITAN EMAILS CORRECTOS */
+$('#docent_emailinst').blur(function(e){    
+	if(this.value != ""){
+		re=/^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
+		if(!re.exec(this.value)){
+			bootbox.alert("El email ingresado no tiene un formato válido");
+			$('#docent_emailinst').val("")
+		}	
+	}                            
+
+});
+
 $(function() {
 
     $( "#docent_fechaing" ).datepicker({
@@ -181,17 +225,18 @@ function eliminar(docent_id){
 				tabla.ajax.reload();
 			});
 		}
-	})
+	}) 
 }
 
 function mostrarPer(docent_id){
 	$.post("../ajax/docente.php?op=mostrarPer",{docent_id : docent_id}, function(data,status){
-		//data = JSON.parse(data);
+		data = JSON.parse(data);
 		//console.log(data);
-		bootbox.alert(data);
+		bootbox.alert(data.DOCENT_PERFIL);
 		//bootbox.alert(data);
 		//tabla.ajax.reload();
 	});
 }
+
 
 init();

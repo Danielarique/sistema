@@ -73,8 +73,7 @@ Class Materia
 	}
 
 	public function mostrarPer($materi_id){
-		$sql="SELECT MATERI_PERFILEST
-		      FROM materia  WHERE MATERI_ID='$materi_id'";
+		$sql="SELECT MATERI_PERFILEST FROM materia  WHERE MATERI_ID='$materi_id'";
 		return ejecutarConsultaSimpleFila($sql);
 	}
 

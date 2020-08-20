@@ -42,19 +42,32 @@ function init(){
 	
 }
 
+/*VALIDACION PARA QUE EN ESTOS CAMPO SOLO SE PERMITAN DATOS NUMERICOS */
+$('#materi_codigo, #materi_horascur, #materi_horasart, #materi_horaslidart, #materi_horasprac').keyup(function(e)                                {
+	if (/\D/g.test(this.value))
+	{
+	bootbox.alert("Solo se permiten datos númericos en este campo");
+	this.value = this.value.replace(/\D/g, '');
+	}
+});
+
 //FUNCION PARA LIMPIAR CAMPOS
 function limpiar()
 {
+	$("#materi_id").val("");
 	$("#materi_codigo").val("");
 	$("#materi_nombre").val("");
+	$('#progra_id').selectpicker('refresh');
 	$("#progra_id").val("");
+	$('#materi_planest').selectpicker('refresh');
 	$("#materi_planest").val("");
+	$('#materi_semestre').selectpicker('refresh');
 	$("#materi_semestre").val("");
 	$("#materi_semes").val("");
 	$("#materi_horascur").val("");
 	$("#materi_horasart").val("");
 	$("#materi_horaslidart").val("");
-	$("#materi_horaprac").val("");
+	$("#materi_horasprac").val("");
 	$("#materi_perfilest").val("");
 	$("#materi_actacurr").val("");
 }
@@ -175,9 +188,9 @@ function eliminar(materi_id){
 
 function mostrarPer(materi_id){
 	$.post("../ajax/materia.php?op=mostrarPer",{materi_id : materi_id}, function(data,status){
-		//data = JSON.parse(data);
+		data = JSON.parse(data);
 		//console.log(data);
-		bootbox.alert(data);
+		bootbox.alert(data.MATERI_PERFILEST);
 		//bootbox.alert(data);
 		//tabla.ajax.reload();
 	});

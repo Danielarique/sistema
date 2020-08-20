@@ -16,18 +16,19 @@ $materi_horaslidart=isset($_POST["materi_horaslidart"])? limpiarCadena($_POST["m
 $materi_horasprac=isset($_POST["materi_horasprac"])? limpiarCadena($_POST["materi_horasprac"]):"";
 $materi_perfilest=isset($_POST["materi_perfilest"])? limpiarCadena($_POST["materi_perfilest"]):"";
 $materi_actacurr=isset($_POST["materi_actacurr"])? limpiarCadena($_POST["materi_actacurr"]):"";
-$materi_usuadigi = 'drique';
-
+$materi_usuadigi =isset($_POST["materi_usuadigi"])? limpiarCadena($_POST["materi_usuadigi"]):"";
+  
 switch ($_GET["op"]) {
 	case 'guardaryeditar':
 		if(empty($materi_id)){
 			$rspta=$materia->insertar($materi_codigo,$materi_nombre,$progra_id,$materi_planest,$materi_semestre,
-				$materi_horascur,$materi_horasart,$materi_horaslidart,$materi_horasprac,$materi_perfilest,$materi_actacurr,
-				$materi_usuadigi);
+				$materi_horascur,$materi_horasart,$materi_horaslidart,$materi_horasprac,$materi_perfilest,
+				$materi_actacurr,$materi_usuadigi);
 			echo $rspta ? "Materia Registrada" : "Materia no se pudo registrar";
 		}else{
-			$rspta=$materia->editar($materi_id,$materi_codigo,$materi_nombre,$progra_id,$materi_planest,$materi_semestre,
-				$materi_horascur,$materi_horasart,$materi_horaslidart,$materi_horasprac,$materi_perfilest,$materi_actacurr,$materi_usuadigi);
+			$rspta=$materia->editar($materi_id,$materi_codigo,$materi_nombre,$progra_id,$materi_planest,
+				$materi_semestre,$materi_horascur,$materi_horasart,$materi_horaslidart,$materi_horasprac,
+				$materi_perfilest,$materi_actacurr,$materi_usuadigi);
 			echo $rspta ? "Materia Actualizada" : "Materia no se pudo actualizar";
 		}
 
@@ -82,7 +83,7 @@ switch ($_GET["op"]) {
 		$rspta = $programa->select();
 
 		while ($reg = $rspta->fetch_object()) {
-			echo '<option value=' .$reg->PROGRA_ID .'>' . $reg->PROGRA_CODIGO .'</option>';
+			echo '<option value=' .$reg->PROGRA_ID .'>' . $reg->PROGRA_CODIGO ."-".$reg->PROGRA_NOMBRE.'</option>';
 		}
 
 	break;

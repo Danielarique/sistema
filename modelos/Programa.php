@@ -8,7 +8,7 @@ Class Programa
 	public function _construct()
 	{
 
-	}
+	} 
 
 	//SE IMPLEMENTA METODO PARA INSERTAR REGISTROS
 	public function insertar($progra_codigo,$progra_nombre,$progra_email,$progra_usuadigi)
@@ -16,7 +16,7 @@ Class Programa
 
 		$sql="INSERT INTO programa (PROGRA_CODIGO, PROGRA_NOMBRE, PROGRA_EMAIL, PROGRA_USUADIGI, PROGRA_FECHDIGI,
 				 		           PROGRA_HORADIGI)
-		           VALUES('$progra_codigo','$progra_nombre','$progra_email','$progra_usuadigi',CURTIME(),CURDATE())";
+		           VALUES('$progra_codigo','$progra_nombre','$progra_email','$progra_usuadigi',CURDATE(),CURTIME())";
 		           		
 		return ejecutarConsulta($sql);
 	}
@@ -26,7 +26,7 @@ Class Programa
 	{
 		$sql="UPDATE programa SET PROGRA_CODIGO='$progra_codigo',PROGRA_NOMBRE='$progra_nombre',
 								 PROGRA_EMAIL='$progra_email',PROGRA_USUADIGI='$progra_usuadigi',
-								 PROGRA_FECHDIGI=CURTIME(),PROGRA_HORADIGI=CURDATE()
+								 PROGRA_FECHDIGI=CURDATE(),PROGRA_HORADIGI=CURTIME()
 							WHERE PROGRA_ID='$progra_id'";
 		return ejecutarConsulta($sql);
 

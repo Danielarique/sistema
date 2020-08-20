@@ -21,7 +21,7 @@ if($_SESSION['privi_catprogra']==1){
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Privilegios Cats-Programas</h1>
+                          <h1 class="box-title">Privilegios CAT-Programas</h1>
                     </div>
                     <!-- /.box-header -->
                     <!-- centro -->
@@ -30,7 +30,7 @@ if($_SESSION['privi_catprogra']==1){
                         <thead>
                           <th>Nombre</th>
                           <th>Usuario</th>
-                          <th>Cats</th>
+                          <th>CAT</th>
                           <th>Programas</th>
                         </thead>
                         <tbody>
@@ -38,7 +38,7 @@ if($_SESSION['privi_catprogra']==1){
                         <tfoot>
                           <th>Nombre</th>
                           <th>Usuario</th>
-                          <th>Cats</th>
+                          <th>CAT</th>
                           <th>Programas</th>
                         </tfoot>
                       </table>

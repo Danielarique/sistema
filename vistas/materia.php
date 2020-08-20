@@ -65,6 +65,7 @@ if($_SESSION['materia']==1){
                       <div class="container" id="advanced-search-form">
                         <h2 align="center">INGRESAR DATOS MATERIA</h2>
                         <form name="formulario" id="formulario" method="POST">
+                          <input type="hidden" name="materi_usuadigi" id="materi_usuadigi" value="<?php echo $_SESSION['USUARI_USUARIO']; ?>">
                           <table>
                             <div class="form-row">
                               <tr>
@@ -78,26 +79,30 @@ if($_SESSION['materia']==1){
                                 <td>
                                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 200px">
                                     <label>Nombre:</label>
-                                    <input type="text" class="form-control" name="materi_nombre" id="materi_nombre" style="text-transform: uppercase; text-decoration: none;">
+                                    <input type="text" class="form-control" name="materi_nombre" id="materi_nombre" style="text-decoration: none;"  onkeyup="javascript:this.value=this.value.toUpperCase();">
                                   </div>
                                 </td>
                                 <td>
                                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 100px">
                                     <label>Programa:</label>
-                                    <select class="selectpicker" data-live-search="true" name="progra_id" id="progra_id" style="text-transform: uppercase;text-decoration:none;align-content: left">
+                                    <select class="selectpicker" data-live-search="true" name="progra_id" id="progra_id" style="text-transform: uppercase;text-decoration:none;align-content: left" title="SELECCIONAR PROGRAMA">
                                     </select>
                                   </div> 
                                 </td>
                                 <td>
                                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 120px">
                                     <label>Plan Estudio:</label>
-                                    <select class="selectpicker" data-live-search="false"  name="materi_planest"id="materi_planest"></select>
+                                    <select class="selectpicker" data-live-search="false"  name="materi_planest"id="materi_planest" title="SELECCIONAR PLAN ESTUDIO">
+                                      
+                                    </select>
                                   </div>
                                 </td>
                                  <td>
                                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 100px">
                                     <label>Semestre:</label>
-                                    <select class="selectpicker" data-live-search="false" name="materi_semestre" id="materi_semestre" style="text-transform: uppercase; text-decoration: none;"></select>
+                                    <select class="selectpicker" data-live-search="false" name="materi_semestre" id="materi_semestre" style="text-transform: uppercase; text-decoration: none;" title="SELECCIONAR SEMESTRE">
+                                      
+                                    </select>
                                   </div>
                                 </td>
                                 <td>

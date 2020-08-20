@@ -51,7 +51,7 @@ Class Priv_catprogra
 	//SE IMPLEMENTA METODO PARA MOSTRAR TODOS LOS REGISTROS
 	public function listarUsua(){
 		$sql="SELECT USUARI_ID, USUARI_NOMBRES, USUARI_USUARIO
-		      FROM usuario ORDER BY USUARI_NOMBRES ASC";
+		      FROM usuario ORDER BY USUARI_NOMBRES";
 		return ejecutarConsulta($sql);
 	}
 

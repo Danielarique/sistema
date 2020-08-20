@@ -8,19 +8,32 @@ $usuari_nombres=isset($_POST["usuari_nombres"])? limpiarCadena($_POST["usuari_no
 $usuari_usuario=isset($_POST["usuari_usuario"])? limpiarCadena($_POST["usuari_usuario"]):"";
 $usuari_password=isset($_POST["usuari_password"])? limpiarCadena($_POST["usuari_password"]):"";
 $usuari_email=isset($_POST["usuari_email"])? limpiarCadena($_POST["usuari_email"]):"";
-$usuari_rol=isset($_POST["usuari_rol"])? limpiarCadena($_POST["usuari_rol"]):"";
 $usuari_estado=isset($_POST["usuari_estado"])? limpiarCadena($_POST["usuari_estado"]):"";
-$usuari_usuadigi = 'drique';
+$usuari_usuadigi =isset($_POST["usuari_usuadigi"])? limpiarCadena($_POST["usuari_usuadigi"]):"";
 
 switch ($_GET["op"]) {
 	case 'guardaryeditar':
-
-	$usuari_passHash = hash("SHA256", $usuari_password);
+	if($usuari_password != ""){
+		$usuari_passHash = hash("SHA256", $usuari_password);
+	}else{
+		$usuari_passHash = "";
+	}
 		if(empty($usuari_id)){
-			$rspta=$usuario->insertar($usuari_nombres,$usuari_usuario,$usuari_passHash,$usuari_email,$usuari_rol,$usuari_estado,$usuari_usuadigi,$_POST["modulo"]);
+			if(isset($_POST["modulo"])){
+				$modulos = $_POST["modulo"];
+			}else{
+				$modulos = "";
+			}
+			$rspta=$usuario->insertar($usuari_nombres,$usuari_usuario,$usuari_passHash,$usuari_email,
+				$usuari_estado,$usuari_usuadigi,$modulos);
 			echo $rspta ? "Usuario Registrado" : "No se pudieron registrar todos los datos del usuario";
 		}else{
-			$rspta=$usuario->editar($usuari_id,$usuari_nombres,$usuari_usuario,$usuari_passHash,$usuari_email,$usuari_rol,$usuari_estado,$usuari_usuadigi,$_POST["modulo"]);
+			if(isset($_POST["modulo"])){
+				$modulos = $_POST["modulo"];
+			}else{
+				$modulos = "";
+			}
+			$rspta=$usuario->editar($usuari_id,$usuari_nombres,$usuari_usuario,$usuari_passHash,$usuari_email,$usuari_estado,$usuari_usuadigi,$modulos);
 			echo $rspta ? "Usuario Actualizado" : "No se pudieron actualizar todos los datos del usuario";
 		}
 
@@ -28,8 +41,23 @@ switch ($_GET["op"]) {
 	break;
 
 	case 'eliminar':
-		$rspta=$usuario->eliminar($usuari_id);
-		echo $rspta ? "Usuario Eliminado" : "Usuario Eliminado";
+		//Eliminamos los privilegios de modulo del usuario
+		require_once("../modelos/Privil_Modulo.php");
+		$privil_Modulo = new Privil_Modulo();
+		$rspta1 = $privil_Modulo->eliminar($usuari_id);
+
+		//Eliminamos los privilegios de cat del usuario
+		require_once("../modelos/Priv_Cat.php");
+		$priv_cat = new Priv_Cat();
+		$rspta2 = $priv_cat->eliminar($usuari_id);
+
+		//Eliminamos los privilegios de programas del usuario
+		require_once("../modelos/Priv_Progra.php");
+		$priv_progra = new Priv_Progra();
+		$rspta3 = $priv_progra->eliminar($usuari_id);
+
+		$rspta4=$usuario->eliminar($usuari_id);
+		echo $rspta4 ? "Usuario Eliminado" : "Usuario no se pudo eliminar";
 	break;
 
 	case 'mostrar':
@@ -44,14 +72,17 @@ switch ($_GET["op"]) {
 
 
 		while ($reg=$rspta->fetch_object()){
-		
+			if($reg->USUARI_ESTADO == 1){
+				$Estado = "Activo";
+			}else{
+				$Estado = "Desactivo";
+			}
 			$data[]=array(
 				"0"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->USUARI_ID.')"><i class="fa fa-pencil"></i></button>'.' &nbsp; &nbsp;<button class="btn btn-danger" onclick="eliminar('.$reg->USUARI_ID.')"><i class="fa fa-trash"></i></button>',
 				"1"=>$reg->USUARI_NOMBRES,
 				"2"=>$reg->USUARI_USUARIO,
 				"3"=>$reg->USUARI_EMAIL,
-				"4"=>$reg->USUARI_ROL,
-				"5"=>$reg->USUARI_ESTADO
+				"4"=>$Estado
 			);
 		}
 		$results = array(
@@ -83,7 +114,7 @@ switch ($_GET["op"]) {
 
 		while($reg= $rspta->fetch_object()) {
 			$sw = in_array($reg->MODULO_ID, $valores)?'checked':'';
-			echo '<li> <input type="checkbox"'.$sw.' name="modulo[]" value="'.$reg->MODULO_ID.'">'.$reg->MODULO_NOMBRE.'</li>';
+			echo '<li> <input type="checkbox"'.$sw.' id="modulo" name="modulo[]" value="'.$reg->MODULO_ID.'">'.$reg->MODULO_NOMBRE.'</li>';
 		}
 
 	break;

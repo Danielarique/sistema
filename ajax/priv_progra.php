@@ -3,11 +3,17 @@ require_once "../modelos/Priv_Progra.php";
 
 $priv_progra = new Priv_Progra();
 
-$cat_usuadigi = 'drique';
+$privprogra_usuadigi =isset($_POST["usuari_usuadigi"])? limpiarCadena($_POST["usuari_usuadigi"]):"";
+
 
 switch ($_GET["op"]) {
 	case 'guardar':	
-		$rspta=$priv_progra->insertar($_POST["usuari_id"],$_POST["privil_progra"]);
+	if(isset($_POST["privil_progra"])){
+			$progra = $_POST["privil_progra"];
+		}else{
+			$progra = "";
+		}
+		$rspta=$priv_progra->insertar($_POST["usuari_id"],$progra,$privprogra_usuadigi);
 		echo $rspta ? "Privilegios de Programas Registrados" : "Privilegios de Programas no se pudieron registrar";	
 	break;
 

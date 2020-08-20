@@ -21,15 +21,48 @@ function init(){
 		guardaryeditar(e);
 		
 	});
+
+} 
+
+/*VALIDACION PARA QUE EN ESTOS CAMPO SOLO SE PERMITAN DATOS NUMERICOS */
+$('#progra_codigo').keyup(function(e)                                {
+	if (/\D/g.test(this.value))
+	{
+	bootbox.alert("Solo se permiten datos númericos en este campo");
+	this.value = this.value.replace(/\D/g, '');
+	}
+});
+
+/*VALIDACION PARA QUE EN ESTOS CAMPO SOLO SE PERMITAN LETRAS */
+$('#progra_nombre').keyup(function(e)                                {
 	
-}
+	if (/[^a-zA-ZÁÉÍÓÚáéíóúñÑ ]/g.test(this.value))
+	{
+		bootbox.alert("Solo se permiten letras en este campo");
+		this.value = this.value.replace(/[^a-zA-ZÁÉÍÓÚáéíóúñÑ ]/g, '');
+	}
+});
+
+/*VALIDACION PARA QUE EN ESTOS CAMPO SOLO SE PERMITAN EMAILS CORRECTOS */
+$('#progra_email').blur(function(e){  
+	if(this.value != ""){
+		re=/^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
+		if(!re.exec(this.value)){
+			bootbox.alert("El email ingresado no tiene un formato válido");
+			$('#progra_email').val("");
+		}
+	}                              
+
+});
+
 
 //FUNCION PARA LIMPIAR CAMPOS
 function limpiar()
 {
-	$("#programa_codigo").val("");
-	$("#programa_nombre").val("");
-	$("#programa_email").val("");
+	$("#progra_id").val("");
+	$("#progra_codigo").val("");
+	$("#progra_nombre").val("");
+	$("#progra_email").val("");
 }
 
 //FUNCION PARA MOSTRAR FORMULARIOS
@@ -77,7 +110,7 @@ function listar()
 					type : "get",
 					dataType : "json",						
 					error: function(e){
-						console.log(e.responseText);	
+						//console.log(e.responseText);	
 					}
 				},
 		"bDestroy": true,

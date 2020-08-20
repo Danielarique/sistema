@@ -27,9 +27,41 @@ function init(){
 	
 }
 
+/*VALIDACION PARA QUE EN ESTOS CAMPO SOLO SE PERMITAN DATOS NUMERICOS */
+$('#cat_codigo, #cat_codigogci').keyup(function(e)                                {
+	if (/\D/g.test(this.value))
+	{
+	bootbox.alert("Solo se permiten datos númericos en este campo");
+	this.value = this.value.replace(/\D/g, '');
+	}
+});
+
+/*VALIDACION PARA QUE EN ESTOS CAMPO SOLO SE PERMITAN LETRAS */
+$('#cat_nombre').keyup(function(e)                                {
+	
+	if (/[^a-zA-ZÁÉÍÓÚáéíóúñÑ ]/g.test(this.value))
+	{
+		bootbox.alert("Solo se permiten letras en este campo");
+		this.value = this.value.replace(/[^a-zA-ZÁÉÍÓÚáéíóúñÑ ]/g, '');
+	}
+});
+
+/*VALIDACION PARA QUE EN ESTOS CAMPO SOLO SE PERMITAN EMAILS CORRECTOS */
+$('#cat_email').blur(function(e){
+	if(this.value != ""){                                
+		re=/^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
+		if(!re.exec(this.value)){
+			bootbox.alert("El email ingresado no tiene un formato válido");
+			$('#cat_email').val("");
+		}
+	}
+});
+
+
 //FUNCION PARA LIMPIAR CAMPOS
 function limpiar()
 {
+	$("#cat_id").val("");
 	$("#cat_codigo").val("");
 	$("#cat_codigogci").val("");
 	$("#cat_nombre").val("");

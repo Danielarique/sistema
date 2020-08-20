@@ -3,12 +3,17 @@ require_once "../modelos/Priv_Cat.php";
 
 $priv_cat = new Priv_Cat();
 
-$cat_usuadigi = 'drique';
-
+$privcat_usuadigi =isset($_POST["usuari_usuadigi"])? limpiarCadena($_POST["usuari_usuadigi"]):"";
+ 
 switch ($_GET["op"]) {
 	case 'guardar':	
-		$rspta=$priv_cat->insertar($_POST["usuari_id"],$_POST["privil_cat"]);
-		echo $rspta ? "Privilegios de Cats Registrados" : "Privilegios de Cats no se pudieron registrar";	
+		if(isset($_POST["privil_cat"])){
+			$cats = $_POST["privil_cat"];
+		}else{
+			$cats = "";
+		}
+			$rspta=$priv_cat->insertar($_POST["usuari_id"],$cats,$privcat_usuadigi);
+			echo $rspta ? "Privilegios de Cats Registrados" : "Privilegios de Cats no se pudieron registrar";
 	break;
 
 	case 'priv_cat':
@@ -29,15 +34,17 @@ switch ($_GET["op"]) {
 			array_push($valores,$cats->CAT_ID);
 		}
 
+		
 		while($reg= $rspta->fetch_object()) {
 			$sw = in_array($reg->CAT_ID, $valores)?'checked':'';
 			//echo '<li> <input type="checkbox"'.$sw.' name="privil_cat[]" value="'.$reg->CAT_ID.'">'.$reg->CAT_NOMBRE.'</li>';
 
 			$data[]=array(
-				"0"=>'<input type="checkbox"'.$sw.' name="privil_cat[]" value="'.$reg->CAT_ID.'">',
+				"0"=>'<input type="checkbox"'.$sw.'  name="privil_cat[]"   value="'.$reg->CAT_ID.'">',
 				"1"=>$reg->CAT_CODIGO,
 				"2"=>$reg->CAT_NOMBRE
 			);
+			
 		}
 		$results = array(
  			"sEcho"=>1, //Información para el datatables

@@ -19,10 +19,18 @@ function init(){
                     	//console.log(item);
 							return item;
                         }));
-                    },     	
+                    }   
                 });
-            }
+            },
+            afterSelect: function (item) {
+	           	var docent_info =  item.split("-");
+				var docent_documento =  docent_info[0];
+				var docent_nombre = docent_info[1];
+				$("#docent_documento").val(docent_documento);
+				$("#docent_nombre").val(docent_nombre);
+      		}
         });
+
 
         $('#docent_nombre').typeahead({
             source: function (busqueda, resultado) {
@@ -38,7 +46,14 @@ function init(){
                         }));
                     },	
                 });
-            }
+            },
+	      	afterSelect: function (item) {
+	           	var docent_info =  item.split("-");
+				var docent_documento =  docent_info[0];
+				var docent_nombre = docent_info[1];
+				$("#docent_documento").val(docent_documento);
+				$("#docent_nombre").val(docent_nombre);
+	       	}
         });
     });
 
@@ -134,10 +149,6 @@ function init(){
 				}
 			});
 
-
-				
-		
-		
 	});
 	/*$("#formulario").on("submit",function(e){
 		e.preventDefault();			
@@ -206,8 +217,18 @@ function autoco_docente(docent)
 function limpiar()
 {
 	$("#asigna_id").val("");
+	$('#cat_id').selectpicker('refresh');
+	$("#cat_id").val("");
+	$('#despla_id').selectpicker('refresh');
+	$("#despla_id").val("");
+	$('#materi_id').selectpicker('refresh');
+	$("#materi_id").val("");
 	$("#docent_documento").val("");
 	$("#docent_nombre").val("");
+	$("#grupo_id").val("1");
+	$("#semana_id").val("1");
+	$("#dia_id").val("1");
+	$("#hora_id").val("1");
 	$("#asigna_lidart").val("");
 	$("#asigna_salon").val("");
 	$("#asigna_observ").val("");
@@ -269,33 +290,6 @@ function listar()
 	}).DataTable();
 }
 
-//FUNCION PARA GUARDAR Y EDITAR
-/*function guardaryeditar(e){
-	alert("okkk"); 
-	
-	$("#btnGuardar").prop("disabled",true);
-	var formData = new FormData($("#formulario")[0]);
-	//console.log(formData);
-	//return false;
-	$.ajax({
-		url: "../ajax/asignacion.php?op=guardaryeditar",
-	    type: "POST",
-	    data: formData,
-	    contentType: false,
-	    processData: false,
-
-	    success: function(datos)
-	    {                    
-	        bootbox.alert(datos);	          
-	        // mostrarform(false);
-	        //tabla.ajax.reload();
-	    }
-	 
-
-	});
-	limpiar();
-			
-}*/
 
 function guardaryeditar(){ 
 	
@@ -313,7 +307,7 @@ function guardaryeditar(){
 	var asigna_lidart = $("#asigna_lidart").val();
 	var asigna_salon = $("#asigna_salon").val();
 	var asigna_observ = $("#asigna_observ").val();
-	var asigna_usuadigi = $("#usuari_usuario").val();
+	var asigna_usuadigi = $("#usuari_usuadigi").val();
 
 	/*console.log(asigna_id,cat_id,despla_id,materi_id,docent_document,grupo_id,semana_id,dia_id,hora_id,asigna_lidart,
 		asigna_salon,asigna_observ,asigna_usuadigi);*/
@@ -372,14 +366,16 @@ function eliminar(asigna_id){
 //FUNCION PARA MOSTRAR EL PERFIL ESTABLECIDO POR MATERIA EN UN ALERT
 function mostrarPer(materi_id){
 	$.post("../ajax/materia.php?op=mostrarPer",{materi_id : materi_id}, function(data,status){	
-		bootbox.alert(data);
+		data = JSON.parse(data);
+		bootbox.alert(data.MATERI_PERFILEST);
 	});
 }
 
 //FUNCION PARA MOSTRAR EL PERFIL DEL DOCENTE EN UN ALERT
 function mostPerDoc(docent_id){
 	$.post("../ajax/docente.php?op=mostrarPer",{docent_id : docent_id}, function(data,status){	
-		bootbox.alert(data);
+		data = JSON.parse(data);
+		bootbox.alert(data.DOCENT_PERFIL);
 	});
 }
 

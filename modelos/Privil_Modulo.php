@@ -17,6 +17,12 @@ Class Privil_Modulo
 		return ejecutarConsulta($sql);
 	}
 
+	//SE IMPLEMENTA METODO PARA ELIMINAR TODOS LOS PRIVILEGIOS DE MODULO DEL USUARIO 
+	public function eliminar($usuari_id){
+		$sql="DELETE FROM privil_modulo WHERE USUARI_ID='$usuari_id'";
+		return ejecutarConsulta($sql);
+	}
+
 }
 
 

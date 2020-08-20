@@ -34,7 +34,6 @@ if($_SESSION['usuario']==1){
                           <th>Nombres</th>
                           <th>Usuario</th>
                           <th>Email</th>
-                          <th>Rol</th>
                           <th>Estado</th>
                         </thead>
                         <tbody>
@@ -44,7 +43,6 @@ if($_SESSION['usuario']==1){
                           <th>Nombres</th>
                           <th>Usuario</th>
                           <th>Email</th>
-                          <th>Rol</th>
                           <th>Estado</th>
                         </tfoot>
                       </table>
@@ -53,6 +51,7 @@ if($_SESSION['usuario']==1){
                       <div class="container" id="advanced-search-form" style="height: 400px">
                         <h2 align="center">INGRESAR DATOS USUARIO</h2>
                         <form name="formulario" id="formulario" method="POST">
+                          <input type="hidden" name="usuari_usuadigi" id="usuari_usuadigi" value="<?php echo $_SESSION['USUARI_USUARIO']; ?>">
                           <table align="center">
                             <div class="form-row">
                               <tr>
@@ -66,7 +65,7 @@ if($_SESSION['usuario']==1){
                                 <td>
                                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 200px">
                                     <label>Usuario:</label>
-                                    <input type="text" class="form-control" name="usuari_usuario" id="usuari_usuario" style="text-decoration: none;">
+                                    <input type="text" class="form-control" name="usuari_usuario" id="usuari_usuario" style="text-decoration: none;text-transform: lowercase;">
                                   </div>
                                 </td>
                                 <td>
@@ -78,19 +77,13 @@ if($_SESSION['usuario']==1){
                               </tr>
                             </div>
                           </table>
-                           <table align="center">
+                           <table>
                             <div class="form-row">
                               <tr>
                                 <td>
                                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 200px">
                                     <label>Email:</label>
                                     <input type="email" class="form-control" name="usuari_email" id="usuari_email">
-                                  </div>
-                                </td>
-                                 <td>
-                                  <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 200px">
-                                    <label>Rol:</label>
-                                    <input type="text" class="form-control" name="usuari_rol" id="usuari_rol">
                                   </div>
                                 </td>
                                 <td>
@@ -106,9 +99,10 @@ if($_SESSION['usuario']==1){
                                 </td>
                                 <td>
                                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 200px">
-                                    <label>Privilegios Modulos:</label>
-                                    <ul style="list-style: none;" id="privil_modulo">     
-                                    </ul>
+                                    <fieldset>
+                                      <legend>Privilegios Modulos:</legend>
+                                        <ul style="list-style: none;columns: 3" id="privil_modulo"></ul>
+                                    </fieldset>
                                   </div>
                                 </td>
                               </tr>

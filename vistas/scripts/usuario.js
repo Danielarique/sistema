@@ -10,25 +10,26 @@ function init(){
 		var usuari_email = $("#usuari_email").val();
 		var usuari_id = $("#usuari_id").val();
 		var usuari_usuario = $("#usuari_usuario").val();
-		$.post("../ajax/usuario.php?op=email_existe&usuari_email="+usuari_email+
-			"&usuari_id="+usuari_id, function(data){
-			if(data>=1){
-				bootbox.alert("Ya existe un usuario registrado con el email "+usuari_email);
-				$("#usuari_email").val("");
-			}
-		});
+		if(usuari_email != ""){
 
-	});
+			$.post("../ajax/usuario.php?op=email_existe&usuari_email="+usuari_email+
+				"&usuari_id="+usuari_id, function(data){
+				if(data>=1){
+					bootbox.alert("Ya existe un usuario registrado con el email "+usuari_email);
+					$("#usuari_email").val("");
+				}
+			});
+		}
+
+	}); 
 
 	$("#usuari_usuario").on('blur',function(event) {
 		var usuari_id = $("#usuari_id").val();
 		var usuari_usuario = $("#usuari_usuario").val();
-		var usuari_usuario2 = sinEspa(usuari_usuario);
-		$("#usuari_usuario").val(usuari_usuario2);
-		$.post("../ajax/usuario.php?op=usuari_existe&usuari_usuario="+usuari_usuario2+
+		$.post("../ajax/usuario.php?op=usuari_existe&usuari_usuario="+usuari_usuario+
 			"&usuari_id="+usuari_id, function(data){
 			if(data>=1){
-				bootbox.alert("Ya existe un usuario registrado con el usuario "+usuari_usuario2);
+				bootbox.alert("Ya existe un usuario registrado con el usuario "+usuari_usuario);
 				$("#usuari_usuario").val("");
 			}
 		});
@@ -43,19 +44,20 @@ function init(){
 		}else if($("#usuari_usuario").val()==""){
 			bootbox.alert('Debe diligenciar campo Usuario');
 			return false;
-		}else if($("#usuari_password").val()==""){
-			bootbox.alert('Debe diligenciar campo Password');
-			return false;
 		}else if($("#usuari_email").val()==""){
 			bootbox.alert('Debe diligenciar campo Email');
-			return false;
-		}else if($("#usuari_rol").val()==""){
-			bootbox.alert('Debe diligenciar campo Rol');
 			return false;
 		}else if($("#usuari_estado").val()==""){
 			bootbox.alert('Debe diligenciar campo Estado');
 			return false;
-		}	
+		}
+		if($("#usuari_id").val()==""){
+			if($("#usuari_password").val()==""){
+				bootbox.alert('Debe diligenciar campo Password');
+				return false;
+			}
+		}
+
 		guardaryeditar(e);
 		
 		
@@ -66,16 +68,54 @@ function init(){
 	
 }
 
+/*VALIDACION PARA QUE EN ESTOS CAMPO SOLO SE PERMITAN LETRAS */
+$('#usuari_nombres').keyup(function(e)                                {
+	
+	if (/[^a-zA-ZÁÉÍÓÚáéíóúñÑ ]/g.test(this.value))
+	{
+		bootbox.alert("Solo se permiten letras en este campo");
+		this.value = this.value.replace(/[^a-zA-ZÁÉÍÓÚáéíóúñÑ ]/g, '');
+	}
+});
+
+/*FUNCION PARA ELIMINAR ESPACIOS EN BLANCO*/
+$("#usuari_usuario").keyup(function(){              
+        var ta      =   $("#usuari_usuario");
+        letras      =   ta.val().replace(/ /g, "");
+        ta.val(letras)
+});
+
+/*VALIDACION PARA QUE EN ESTOS CAMPO SOLO SE PERMITAN EMAILS CORRECTOS */
+$('#usuari_email').blur(function(e){  
+	if(this.value != ""){
+		re=/^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
+		if(!re.exec(this.value)){
+			bootbox.alert("El email ingresado no tiene un formato válido");
+			$('#usuari_email').val("");
+		}
+	}                              
+
+});
+
+/*VALIDACION PARA QUE EN EL CAMPO PASSWORD SE INGRESEN 6 CARACTERES O MÁS */
+$('#usuari_password').blur(function(e){                    
+	if((this.value).length < 6  && (this.value).length != 0){
+		bootbox.alert("El password debe tener mínimo 6 caracteres");
+		$('#usuari_password').val("");	
+	}
+
+});
 //FUNCION PARA LIMPIAR CAMPOS
 function limpiar()
 {
+	$("#usuari_id").val("");
 	$("#usuari_nombres").val("");
 	$("#usuari_usuario").val("");
 	$("#usuari_password").val("");
 	$("#usuari_email").val("");
-	$("#usuari_rol").val("");
 	$("#usuari_estado").val("");
-}
+	$("#privil_modulo").val("");
+} 
 
 //FUNCION PARA MOSTRAR FORMULARIOS
 function mostrarform(flag)
@@ -121,7 +161,7 @@ function listar()
 					type : "get",
 					dataType : "json",						
 					error: function(e){
-						console.log(e.responseText);	
+						//console.log(e.responseText);	
 					}
 				},
 		"bDestroy": true,
@@ -164,9 +204,8 @@ function mostrar(usuari_id){
 		$("#usuari_id").val(data.USUARI_ID);
 		$("#usuari_nombres").val(data.USUARI_NOMBRES);
 		$("#usuari_usuario").val(data.USUARI_USUARIO);
-		$("#usuari_password").val(data.USUARI_PASSWORD);
+		$("#usuari_password").val("");
 		$("#usuari_email").val(data.USUARI_EMAIL);
-		$("#usuari_rol").val(data.USUARI_ROL);
 		$("#usuari_estado").val(data.USUARI_ESTADO);
 	});
 
@@ -186,6 +225,15 @@ function eliminar(usuari_id){
 			
 		}
 	})
+}
+
+function verEsta(estado){
+	if(estado == 1){
+		var esta = "Activo";
+	}else{
+		var esta = "Desactivo";
+	}
+	return esta;
 }
 
 init();

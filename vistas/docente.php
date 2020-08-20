@@ -61,6 +61,7 @@ if($_SESSION['docente']==1){
                       <div class="container" id="advanced-search-form" style="margin-left: 0px">
                         <h2 align="center">INGRESAR DATOS DOCENTE</h2>
                         <form name="formulario" id="formulario" method="POST">
+                          <input type="hidden" name="docent_usuadigi" id="docent_usuadigi" value="<?php echo $_SESSION['USUARI_USUARIO']; ?>">
                           <table>
                             <div class="form-row">
                               <tr>
@@ -69,22 +70,22 @@ if($_SESSION['docente']==1){
                                     <label>Documento:</label>
                                     <input type="hidden" name="docent_id" id="docent_id">
                                     <input type="text" class="form-control"  name="docent_documento" id="docent_documento" size="30" >
-                                  </div>
+                                  </div> 
                                 </td>
                                 <td>
                                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 160px;margin-left: 0px">
                                     <label>Lugar Expedición:</label>
-                                    <input type="text" class="form-control" name="docent_lugarexp" id="docent_lugarexp" style="text-transform: uppercase; text-decoration: none;">
+                                    <input type="text" class="form-control" name="docent_lugarexp" id="docent_lugarexp" style="text-decoration: none;" onkeyup="javascript:this.value=this.value.toUpperCase();">
                                   </div>
                                 </td>
                                 <td>
                                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 350px;margin-left: 0px">
                                     <label>Nombre:</label>
-                                    <input type="text" class="form-control" name="docent_nombre" id="docent_nombre" style="text-transform: uppercase; text-decoration: none;">
+                                    <input type="text" class="form-control" name="docent_nombre" id="docent_nombre" style="text-decoration: none;"  onkeyup="javascript:this.value=this.value.toUpperCase();">
                                   </div>
                                 </td>
                                 <td>
-                                  <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 160px;margin-left: 0px">
+                                  <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 150px;margin-left: 0px">
                                     <label>Fecha Ingreso:</label>
                                     <input size="16" type="text" class="form-control" name="docent_fechaing" id="docent_fechaing" readonly>
                                   </div>
@@ -99,7 +100,7 @@ if($_SESSION['docente']==1){
                                 <td>
                                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 250px;margin-left: 0px">
                                     <label>Residencia:</label>
-                                    <input type="text" class="form-control" name="docent_residencia" id="docent_residencia" style="text-transform: uppercase; text-decoration: none;">
+                                    <input type="text" class="form-control" name="docent_residencia" id="docent_residencia" style="text-decoration: none;" onkeyup="javascript:this.value=this.value.toUpperCase();">
                                   </div>
                                 </td>
                                 <td>
@@ -133,9 +134,9 @@ if($_SESSION['docente']==1){
                                   </div>
                                 </td>
                                 <td>
-                                  <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 400px;margin-left: 0px">
+                                  <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 331px;margin-left: 0px">
                                     <label>Perfil:</label>
-                                    <input type="text" class="form-control" name="docent_perfil" id="docent_perfil">
+                                    <input type="text" class="form-control" name="docent_perfil" id="docent_perfil" onkeyup="javascript:this.value=this.value.toUpperCase();">
                                   </div>
                                 </td>
                                 <td>

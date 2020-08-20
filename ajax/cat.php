@@ -8,7 +8,7 @@ $cat_codigo=isset($_POST["cat_codigo"])? limpiarCadena($_POST["cat_codigo"]):"";
 $cat_codigogci=isset($_POST["cat_codigogci"])? limpiarCadena($_POST["cat_codigogci"]):"";
 $cat_nombre=isset($_POST["cat_nombre"])? limpiarCadena($_POST["cat_nombre"]):"";
 $cat_email=isset($_POST["cat_email"])? limpiarCadena($_POST["cat_email"]):"";
-$cat_usuadigi = 'drique';
+$cat_usuadigi =isset($_POST["cat_usuadigi"])? limpiarCadena($_POST["cat_usuadigi"]):"";
 
 switch ($_GET["op"]) {
 	case 'guardaryeditar':

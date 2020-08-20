@@ -49,6 +49,7 @@ if($_SESSION['programa']==1){
                       <div class="container" id="advanced-search-form" style="height: 300px">
                         <h2 align="center">INGRESAR DATOS PROGRAMA</h2>
                         <form name="formulario" id="formulario" method="POST">
+                          <input type="hidden" name="progra_usuadigi" id="progra_usuadigi" value="<?php echo $_SESSION['USUARI_USUARIO']; ?>">
                           <table>
                             <div class="form-row">
                               <tr>
@@ -62,7 +63,7 @@ if($_SESSION['programa']==1){
                                 <td>
                                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 200px">
                                     <label>Nombre:</label>
-                                    <input type="text" class="form-control" name="progra_nombre" id="progra_nombre" style="text-transform: uppercase; text-decoration: none;">
+                                    <input type="text" class="form-control" name="progra_nombre" id="progra_nombre" style="text-decoration: none;" onkeyup="javascript:this.value=this.value.toUpperCase();">
                                   </div>
                                 </td>
                                 <td>

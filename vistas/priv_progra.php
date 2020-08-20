@@ -52,6 +52,7 @@ if($_SESSION['privi_catprogra']==1){
               <!-- centro -->
               <form name="listProgra" id="listProgra" method="POST">
                 <input type="hidden" name="usuari_id" id="usuari_id" value="<?php echo $usuari_id;?>">
+                <input type="hidden" name="usuari_usuadigi" id="usuari_usuadigi" value="<?php echo $_SESSION['USUARI_USUARIO']; ?>">
                 <div class="panel-body table-responsive" id="listadoregistros">
                   <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                     <thead>

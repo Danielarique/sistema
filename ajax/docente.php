@@ -2,7 +2,7 @@
 require_once "../modelos/Docente.php";
 
 $docente = new Docente();
-
+ 
 $docent_id=isset($_POST["docent_id"])? limpiarCadena($_POST["docent_id"]):"";
 $docent_documento=isset($_POST["docent_documento"])? limpiarCadena($_POST["docent_documento"]):"";
 $docent_lugarexp=isset($_POST["docent_lugarexp"])? limpiarCadena($_POST["docent_lugarexp"]):"";
@@ -16,7 +16,7 @@ $docent_emailinst=isset($_POST["docent_emailinst"])? limpiarCadena($_POST["docen
 $docent_emailpers=isset($_POST["docent_emailpers"])? limpiarCadena($_POST["docent_emailpers"]):"";
 $docent_planta=isset($_POST["docent_planta"])? limpiarCadena($_POST["docent_planta"]):"";
 $docent_grupos=isset($_POST["docent_grupos"])? limpiarCadena($_POST["docent_grupos"]):"";
-$docent_usuadigi= 'drique';
+$docent_usuadigi= isset($_POST["docent_usuadigi"])? limpiarCadena($_POST["docent_usuadigi"]):"";
 
 switch ($_GET["op"]) {
 	case 'guardaryeditar':
@@ -50,6 +50,13 @@ switch ($_GET["op"]) {
 		$data = Array();
 
 		while ($reg=$rspta->fetch_object()){
+			if($reg->DOCENT_PLANTA == 1){
+				$Planta = "SI";
+			}else if($reg->DOCENT_PLANTA == 2){
+				$Planta = "NO";
+			}else{
+				$Planta = "";
+			}
 		
 			$data[]=array(
 				"0"=>'<button class="btn btn-warning btn-xs" onclick="mostrar('.$reg->DOCENT_ID.')"><i class="fa fa-pencil"></i></button>'.'<br><button class="btn btn-danger btn-xs" onclick="eliminar('.$reg->DOCENT_ID.')"><i class="fa fa-trash"></i></button>',
@@ -60,7 +67,7 @@ switch ($_GET["op"]) {
 				"5"=>$reg->DOCENT_RESIDENCIA,
 				"6"=>$reg->DOCENT_TELEFONO.'<br>'.$reg->DOCENT_CELULAR,
 				"7"=>$reg->DOCENT_EMAILINST.'<br>'.$reg->DOCENT_EMAILPERS,
-				"8"=>$reg->DOCENT_PLANTA,
+				"8"=>$Planta,
 				"9"=>$reg->DOCENT_GRUPOS
 			);
 		}

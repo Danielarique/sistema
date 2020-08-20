@@ -16,7 +16,7 @@ Class Cat
 
 		$sql="INSERT INTO cat (CAT_CODIGO, CAT_CODIGOGCI, CAT_NOMBRE, CAT_EMAIL, CAT_USUADIGI, CAT_FECHDIGI,
 				 		           CAT_HORADIGI)
-		           VALUES('$cat_codigo','$cat_codigogci','$cat_nombre','$cat_email','$cat_usuadigi',CURTIME(),CURDATE())";
+		           VALUES('$cat_codigo','$cat_codigogci','$cat_nombre','$cat_email','$cat_usuadigi',CURDATE(),CURTIME())";
 		           		
 		return ejecutarConsulta($sql);
 	}
@@ -26,7 +26,7 @@ Class Cat
 	{
 		$sql="UPDATE cat SET CAT_CODIGO='$cat_codigo',CAT_CODIGOGCI='$cat_codigogci',CAT_NOMBRE='$cat_nombre',
 								 CAT_EMAIL='$cat_email',CAT_USUADIGI='$cat_usuadigi',
-								 CAT_FECHDIGI=CURTIME(),CAT_HORADIGI=CURDATE()
+								 CAT_FECHDIGI=CURDATE(),CAT_HORADIGI=CURTIME()
 							WHERE CAT_ID='$cat_id'";
 		return ejecutarConsulta($sql);
 

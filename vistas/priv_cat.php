@@ -46,12 +46,13 @@ if($_SESSION['privi_catprogra']==1){
           <div class="col-md-12">
             <div class="box">
               <div class="box-header with-border">
-                <h1 class="box-title">Privilegios Cats</h1>
+                <h1 class="box-title">Privilegios CAT</h1>
               </div>
               <!-- /.box-header -->
               <!-- centro -->
               <form name="listCats" id="listCats" method="POST">
                 <input type="hidden" name="usuari_id" id="usuari_id" value="<?php echo $usuari_id;?>">
+                <input type="hidden" name="usuari_usuadigi" id="usuari_usuadigi" value="<?php echo $_SESSION['USUARI_USUARIO']; ?>">
                 <div class="panel-body table-responsive" id="listadoregistros">
                   <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                     <thead>

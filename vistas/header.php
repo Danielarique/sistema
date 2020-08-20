@@ -114,7 +114,7 @@ if(strlen(session_id()) < 1){
                   echo '<li><a href="modulo.php"><i class="fa fa-circle-o"></i> Modulos</a></li>';
                 }
                 if($_SESSION['privi_catprogra']==1){
-                  echo '<li><a href="priv_catprogra.php"><i class="fa fa-circle-o"></i> Privilegios Cat-Programas</a></li>';
+                  echo '<li><a href="priv_catprogra.php"><i class="fa fa-circle-o"></i> Privilegios CAT-Programas</a></li>';
                 }
                 ?>
               </ul>
@@ -141,7 +141,7 @@ if(strlen(session_id()) < 1){
                   echo '<li><a href="materia.php"><i class="fa fa-circle-o"></i> Materias</a></li>';
                 }
                 if($_SESSION['cat']==1){ 
-                  echo '<li><a href="cat.php"><i class="fa fa-circle-o"></i> Cats</a></li>';
+                  echo '<li><a href="cat.php"><i class="fa fa-circle-o"></i> CAT</a></li>';
                 }
                 ?>
               </ul>

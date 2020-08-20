@@ -21,7 +21,6 @@ if($_SESSION['asignacion']==1){
                   <div class="box">
                     <div class="box-header with-border">
                           <h1 class="box-title">ASIGNACIÓN ACADÉMICA  <button class="btn btn-success" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
-                    <input type="text" name="usuari_usuario" id="usuari_usuario" value="<?php echo $_SESSION['USUARI_USUARIO']; ?>">
                         
                     </div>
                     <!-- /.box-header -->
@@ -100,6 +99,7 @@ if($_SESSION['asignacion']==1){
                       <div class="container" id="advanced-search-form" style="height: 400px">
                         <h2 align="center">INGRESAR ASIGNACIÓN</h2>
                         <form name="formulario" id="formulario" method="POST">
+                          <input type="hidden" name="usuari_usuadigi" id="usuari_usuadigi" value="<?php echo $_SESSION['USUARI_USUARIO']; ?>">
                           <input type="hidden" class="form-control"  name="asigna_id" id="asigna_id">
                           <input type="hidden" name="usuari_id" id="usuari_id" value="<?php echo $_SESSION["USUARI_ID"]; ?>">
                           
@@ -108,21 +108,21 @@ if($_SESSION['asignacion']==1){
                               <td>
                                 <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 100px">
                                   <label>CAT:</label>
-                                  <select class="selectpicker" data-live-search="true" name="cat_id" id="cat_id" style="text-transform: uppercase;text-decoration:none;align-content: left">
+                                  <select class="selectpicker" data-live-search="true" name="cat_id" id="cat_id" style="text-transform: uppercase;text-decoration:none;align-content: left" title="SELECCIONAR CAT">
                                   </select>
                                 </div> 
                               </td>
                               <td>
-                                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 170px">
+                                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 280px">
                                   <label>Desplazamiento:</label>
-                                  <select class="selectpicker" data-width="auto" data-live-search="true" name="despla_id" id="despla_id" style="text-transform: uppercase;text-decoration:none;align-content: left;">
+                                  <select class="selectpicker" data-width="570px" data-live-search="true" name="despla_id" id="despla_id" style="text-transform: uppercase;text-decoration:none;align-content: left;" title="SELECCIONAR DESPLAZAMIENTO">
                                   </select>
                                 </div> 
                               </td>
                               <td>
-                                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 200px">
+                                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 400px">
                                   <label>Materia:</label>
-                                  <select class="selectpicker" data-width="auto" data-live-search="true" name="materi_id" id="materi_id" style="text-transform: uppercase;text-decoration:none;align-content: left">
+                                  <select class="selectpicker" data-width="800px" data-live-search="true"  name="materi_id" id="materi_id" style="text-transform: uppercase;text-decoration:none;align-content: left;width: 100%" title="SELECCIONAR MATERIA">
                                   </select>
                                 </div> 
                               </td>
@@ -133,13 +133,13 @@ if($_SESSION['asignacion']==1){
                               <td>
                                 <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 130px">
                                   <label>Doc. Docente:</label>
-                                  <input type="text" class="form-control" name="docent_documento" id="docent_documento" onchange="autoco_docente(this.value)" autocomplete="off"/>
+                                  <input type="text" class="form-control" name="docent_documento" id="docent_documento"  autocomplete="off"/>
                                 </div> 
                               </td>
                               <td>
                                 <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 300px">
                                   <label>Nombre Docente:</label>
-                                  <input type="text" class="form-control"  name="docent_nombre" id="docent_nombre" onchange="autoco_docente(this.value)" autocomplete="off">
+                                  <input type="text" class="form-control"  name="docent_nombre" id="docent_nombre"  autocomplete="off">
                                 </div> 
                               </td>
                               <td>
@@ -169,7 +169,7 @@ if($_SESSION['asignacion']==1){
                                 </div> 
                               </td>
                               <td>
-                                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 130px">
+                                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 135px">
                                   <label>Día:</label>
                                   <select class="form-control" name="dia_id" id="dia_id" style="text-transform: uppercase;text-decoration:none;align-content: left;">
                                     <option value="1">Lunes</option> 
@@ -215,7 +215,7 @@ if($_SESSION['asignacion']==1){
                                 </div> 
                               </td>
                               <td>
-                                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 300px">
+                                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 324px">
                                   <label>Observaciones:</label>
                                   <textarea class="form-control" name="asigna_observ" id="asigna_observ" rows="1"></textarea>
                                 </div>

@@ -3,10 +3,11 @@ var tabla;
 function init(){
 	listar();
 	$("#listCats").on("submit",function(e){
+
 		guardar(e);		
 	});	
 }
-
+ 
 function listar()
 {	
 	usuari_id = $("#usuari_id").val();
@@ -48,7 +49,7 @@ function guardar(e){
 
 	    success: function(datos)
 	    {                    
-	          bootbox.alert(datos);        
+	          bootbox.alert(datos); 
 	          tabla.ajax.reload();
 	    }
 
